@@ -4,6 +4,7 @@ define(function () {
         paths: {
             "vue": "lib/vue",
             "zepto": "lib/zepto1.2",
+            "axios": "lib/axios",
             "components": "../../message/components"
         }
     });
