@@ -1,0 +1,100 @@
+@mixin text_overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin vertical_middle($height,$size) {
+  height: $height;
+  line-height: $height;
+  font-size: $size;
+  vertical-align: middle;
+}
+
+@mixin trans_middle($size) {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: $size;
+}
+
+@mixin model_size($height:0,$width:0) {
+  height: $height;
+  width: $width;
+}
+
+$name_color: #333333;
+$data_color: #666666;
+$tip_color: #999999;
+$normal_color: #00D0BA;
+$background_color: #F6F6F6;
+$border_color: #dddddd;
+$cover_color: #7B7B7B;
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; /*系统默认菜单被禁用*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -moz-user-select: none; /*火狐*/
+  -ms-user-select: none; /*IE10*/
+  user-select: none;
+}
+
+//打印信息测试用
+.only_for_test {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+input {
+  -webkit-user-select: auto
+}
+
+body {
+  background-color: #F6F6F6;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
+
+#online, #offline, #failed, #countdown, .hide {
+  display: none;
+}
+
+//离线&加载失败页面
+#offline, #failed {
+  width: 100%;
+  text-align: center;
+
+  img {
+    margin-top: 80px;
+    @include model_size(239px, 90px)
+  }
+}
+
+#failed img {
+  @include model_size(232px, 190px);
+}
+
+//添加边框
+.border {
+  &_top {
+    border-top: 1px solid #ededed;
+  }
+
+  &_left {
+    border-left: 1px solid #ededed;
+  }
+
+  &_bottom {
+    border-bottom: 1px solid #ededed;
+  }
+
+  &_right {
+    border-right: 1px solid #ededed;
+  }
+}

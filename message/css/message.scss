@@ -1,0 +1,406 @@
+@import "../../source/css/base_style";
+body{
+	background: #ffffff;
+}
+//头部
+.header {
+  @include model_size(44px, 100%);
+  background-color: white;
+	
+	&.fixed{
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+
+  &_back, &_content, &_more {
+    @include model_size(44px, 20%);
+    float: left;
+  }
+
+  &_content {
+    width: 60%;
+
+    &_text {
+      @include vertical_middle(44px, 18px);
+      @include text_overflow;
+      text-align: center;
+      color: $name_color
+    }
+  }
+
+  &_back img {
+    @include model_size(17px, 9px);
+    margin: {
+      top: 13.5px;
+      left: 15px;
+    };
+  }
+
+  &_more {
+    &_text {
+      @include vertical_middle(19px, 17px);
+      @include text_overflow;
+      color: $normal_color;
+      margin-right: 15px;
+			margin-top: 13px;
+			float: right;
+    }
+
+    img {
+      @include model_size(16px, 16px);
+      float: right;
+      margin: {
+        top: 14px;
+        right: 15px;
+      };
+    }
+  }
+}
+
+//切换
+.nav {
+  @include model_size(40px, 100%);
+  background-color: white;
+	overflow: hidden;
+	position: fixed;
+	left: 0px;
+	top: 44px;
+	z-index: 9;
+
+  &_card {
+    @include model_size(40px, 33.3%);
+    float: left;
+    text-align: center;
+		border-bottom: 1px solid #e7e7e7;
+		
+		&_text{
+			@include vertical_middle(40px, 15px);
+			display: inline-block;
+		}
+		
+		&.active{
+			color: $normal_color;
+			.nav_card_text{
+				@include vertical_middle(40px, 15px);
+				margin-bottom: -2px;
+				border-bottom: 2px solid $normal_color;
+			}
+		}
+  }
+}
+
+//筛选头
+.screen{
+	@include model_size(auto, 100%);
+	display: flex;
+	align-items: center;
+	position: fixed;
+	padding: 14px 10px 0 10px;
+	top: 84px;
+	left:0;
+	z-index: 9;
+	border-radius: 10px;
+	background: #ffffff;
+	
+	&.active{
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		
+		&>.screen_item.active{
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+		&>.screen_item:first-child{
+			border-bottom-left-radius: 0;
+		}
+		&>.screen_item:last-child {
+			border-bottom-right-radius: 0;
+		}
+	}
+	
+	&+.message_list{
+		margin-top: 138px;
+	}
+	&+.screen_down{
+		height: calc(100vh - 138px);
+		top: 138px;
+		
+		&+.message_list{
+			margin-top: 138px;
+		}
+	}
+	
+	&_item{
+		@include vertical_middle(40px, 14px);
+		flex: 1;
+		color: #1A9A90;
+		text-align: center;
+		background: #CCF6F1;
+		
+		&.active{
+			color: $normal_color;
+			.screen_icon{
+				opacity: 1;
+				transform: rotate(90deg);
+				transition: transform 0.2s;
+			}
+		}
+		&.notactive{
+			background: #ffffff;
+		}
+		&:first-child{
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+		}
+		&:last-child{
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+	}
+	
+	&_icon{
+		width: 10px;
+		transform: rotate(0);
+		opacity: 0;
+	}
+	
+	//侧滑
+	&_right{
+		background: rgba(0,0,0,0.5);
+		width: 100%;
+		height: calc(100vh - 84px);
+		position: fixed;
+		top: 84px;
+		left: 0;
+		&_box{
+			background: #ffffff;
+			width: 45%;
+			float: right;
+			height: 100%;
+			padding: 10px;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+		&_item{
+			height: 40px;
+			line-height: 40px;
+			border-radius: 10px;
+			padding: 0 10px;
+			font-size: 14px;
+			
+			&>.title{
+				float: left;
+				max-width: 80%;
+				@include text_overflow
+			}
+			
+			&.active{
+				background: #CCF6F1;
+				img{
+					display: inline-block;
+				}
+			}
+		}
+		&_icon{
+			float: right;
+			height: 10px;
+			margin-top: 15px;
+			margin-right: 0;
+			display: none;
+		}
+	}
+	
+	//下拉
+	&_down{
+		height: calc(100vh - 84px);
+		position: fixed;
+		top: 84px;
+		width: calc(100% - 20px);
+		left: 10px;
+		
+		&_box{
+			max-height: 60vh;
+			overflow-y: auto;
+			overflow-x: hidden;
+			padding: 10px;
+			background: #CCF6F1;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		
+		&_item{
+			@include vertical_middle(35px, 14px);
+			padding: 0 15px;
+			
+			&.active{
+				background: #ffffff;
+				border-radius: 10px;
+				img{
+					display: inline-block;
+				}
+			}
+			
+			&>.title{
+				float: left;
+				max-width: 80%;
+				@include text_overflow
+			}
+			img{
+				display: none;
+			}
+		}
+		
+		&_icon{
+			float: right;
+			height: 10px;
+			margin-top: 15px;
+			margin-right: 0;
+		}
+	}
+}
+
+
+.message{
+	//消息列表
+	&_list{
+		margin-top: 84px;
+		padding-left: 15px;
+	}
+	
+	&_item{
+		display: flex;
+		align-items: center;
+		@include model_size(80px, 100%);
+		border-bottom:1px solid #e7e7e7;
+		&:before{
+			content: '';
+			width: 0;
+			height: 0;
+			border: 4px solid;
+			margin-right: 10px;
+			border-radius: 50%;
+		}
+		&.info{
+			&:before{
+				border-color: #1DDCCD;
+			}
+		}
+		&.alert{
+			&:before{
+				border-color: #F34235;
+			}
+		}
+	}
+	
+	&_icon{
+		width: 40px;
+		margin-right: 10px;
+	}
+	
+	&_content{
+		font-size: 15px;
+		width: 35%;
+		word-break: break-all;
+		flex: 1;
+		
+		&>.name{
+			font-size:15px;
+			line-height: 20px;
+		}
+		
+		&>.content{
+			font-size:12px;
+			line-height: 20px;
+			color: #A1A1A1;
+			@include text_overflow;
+		}
+	}
+	
+	&_time{
+		font-size: 12px;
+		line-height: 20px;
+		width: 80px;
+		color: #A1A1A1;
+		padding-right: 15px;
+		text-align: right;
+	}
+	
+	//消息设置
+	&_set{
+		background: #ffffff;
+		padding-left: 15px;
+		margin-top: 44px;
+		border: solid $border_color;
+		border-width: 1px 0 1px 0;
+		
+		&_item{
+			@include model_size(50px, 100%);
+			@include vertical_middle(50px, 16px);
+			border-bottom: 1px solid $border_color;
+			justify-content: space-between;
+			align-items: center;
+			display: flex;
+			&:last-child{
+				border: 0
+			}
+		}
+		
+		&_name{
+			width: 60%;
+		}
+		
+		&_time{
+			font-size: 14px;
+			color: $data_color;
+			span{
+				vertical-align: middle;
+			}
+		}
+		
+		&_next{
+			height: 16px;
+			margin-right: 15px;
+			vertical-align: middle;
+		}
+		
+		&_icon{
+			height: 24px;
+			margin-right: 15px;
+		}
+	}
+}
+
+//上拉下拉
+.pull{
+	&-refresh{
+		@include model_size(40px, 100%);
+		@include vertical_middle(40px, 16px);
+		text-align: center;
+	}
+	&-bottom{
+		@include vertical_middle(40px, 14px);
+		margin-left: -15px;
+		text-align: center;
+		&:first-child{
+			padding-bottom: 70vh;
+		}
+	}
+	//下拉刷新动画
+	&-down{
+		&-enter{
+			transform:translateY(-40px);
+		}
+		&-enter-active{
+			transform:translateY(0);
+			transition: all ease .2s;
+		}
+		&-leave{
+			transform:translateY(0);
+		}
+		&-leave-active{
+			transform:translateY(-40px);
+			transition: all ease .2s;
+		}
+	}
+}
