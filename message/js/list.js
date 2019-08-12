@@ -9,23 +9,23 @@ require([
             'textArea':textArea
         },
         template: `<div>
-                      <textArea v-for="zd in zds" :placeholder="zd.placeholder" :title="zd.title"></textArea>
+                      <textArea v-for="zd in zds" :zd="zd"></textArea>
                     </div>`,
-        data(){
+        data() {
             return{
                 zds:[]
             }
         },
-        created(){
-            var self = this;
-            return axios.get('../source/temp/zdData.json')
-                .then(function (res) {
-                    console.info(res.data);
-                    self.zds = res.data
+        methods: {
+            getData() {
+                var self = this;
+                return axios.get('../source/temp/zdData.json').then(res => {
+                    self.zds = res.data.list
                 })
-                .catch(function (error) {
-                    self.fetchError = error
-             })
+            }
+        },
+        created() {
+            this.getData()
         }
 
     })

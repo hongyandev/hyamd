@@ -1,24 +1,15 @@
+{
+  "msg": "成功",
+  "list": [
+    {
+      "title": "2019-07-29",
+      "placeholder": "1"
+    },
+    {
+      "title": "2019-07-29",
+      "placeholder": "1"
 
-[
-  {
-    'title':'衡量指标',
-    'placeholder':'衡量指标'
-  },
-  {
-    'title':'年度目标值',
-    'placeholder':'年度目标值'
-  },
-  {
-    'title':'上月完成情况',
-    'placeholder':'年度目标值'
-  },
-  {
-    'title':'差异分析',
-    'placeholder':'年度目标值'
-  },
-  {
-    'title':'解决方案',
-    'placeholder':'年度目标值'
-  }
-]
-
+    }
+  ],
+  "msgCode": "1"
+}
