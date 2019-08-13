@@ -13,7 +13,7 @@ define(['vue'], function (Vue) {
                     <p>{{zd.title}}</p>
                 </div>
                 <div class="mui-input-row" style="margin: 10px 5px;">
-                        <textarea :placeholder="zd.placeholder"></textarea>
+                        <textarea :rows="zd.rows" :placeholder="zd.placeholder" v-model="zd.value"></textarea>
                 </div>
             </div>`
     })

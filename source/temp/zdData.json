@@ -1,15 +1,59 @@
 {
-  "msg": "成功",
-  "list": [
+  "list":[
     {
-      "title": "2019-07-29",
-      "placeholder": "1"
+      "title":"指标类型",
+      "rows":1,
+      "placeholder":"衡量指标",
+      "field" : "zblx"
     },
     {
-      "title": "2019-07-29",
-      "placeholder": "1"
-
+      "title":"衡量指标",
+      "rows":1,
+      "placeholder":"衡量指标",
+      "field" : "hlzb"
+    },
+    {
+      "title":"年度目标值",
+      "rows":3,
+      "placeholder":"年度目标值"
+    },
+    {
+      "title":"上月完成情况",
+      "rows":3,
+      "placeholder":"年度目标值"
+    },
+    {
+      "title":"差异分析",
+      "rows":3,
+      "placeholder":"年度目标值"
+    },
+    {
+      "title":"解决方案",
+      "rows":3,
+      "placeholder":"年度目标值"
+    },
+    {
+      "title":"月预算目标",
+      "rows":3,
+      "placeholder":"月预算目标"
+    },
+    {
+      "title":"本月月度目标值",
+      "rows":3,
+      "placeholder":"本月月度目标值"
+    },
+    {
+      "title":"本月行动方案",
+      "rows":5,
+      "placeholder":"本月行动方案"
     }
   ],
-  "msgCode": "1"
+  "conLists":[
+    {
+      "name":"张三",
+      "value":"0001"
+    }
+  ]
+
 }
+

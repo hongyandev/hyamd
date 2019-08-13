@@ -5,6 +5,9 @@ define(function () {
             "vue": "lib/vue",
             "zepto": "lib/zepto1.2",
             "axios": "lib/axios",
+            "mui": "lib/mui",
+            "picker":"plugin/mui.picker",
+            "poppicker":"plugin/mui.poppicker",
             "components": "../../message/components"
         }
     });
