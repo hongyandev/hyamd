@@ -5,7 +5,7 @@
  * by Houfeng
  * Houfeng@DCloud.io
  */
-
+/*import mui from '../../js/lib/mui.js'*/
 (function($, document) {
 
 	//创建 DOM

@@ -1,0 +1,16 @@
+textarea{font-size:12px;}
+.mui-content {
+    background-color: #fff;
+    padding-top:5px;
+    margin-bottom: 10px;
+}
+.mui-content .mui-border{
+    border-top:1px solid #f7f7f7;
+    border-bottom:1px solid #e5e5e5;
+}
+.mui-content-padded p{
+    color:#000;
+}
+.mui-content textarea,.mui-content button{
+    border:none;
+}

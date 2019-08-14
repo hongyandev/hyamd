@@ -4,7 +4,8 @@
  * by Houfeng
  * Houfeng@DCloud.io
  */
-
+/*import mui from '../lib/mui.js'
+window.mui = mui*/
 (function($, window, document, undefined) {
 
 	var MAX_EXCEED = 30;
@@ -89,6 +90,7 @@
 
 	Picker.prototype.calcAngle = function(c) {
 		var self = this;
+		var b;
 		var a = b = parseFloat(self.r);
 		//直径的整倍数部分直接乘以 180
 		c = Math.abs(c); //只算角度不关心正否值

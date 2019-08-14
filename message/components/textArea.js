@@ -12,7 +12,7 @@ define(['vue'], function (Vue) {
                 <div class="mui-content-padded">
                     <p>{{zd.title}}</p>
                 </div>
-                <div class="mui-input-row" style="margin: 10px 5px;">
+                <div class="mui-input-row mui-border">
                         <textarea :rows="zd.rows" :placeholder="zd.placeholder" v-model="zd.value"></textarea>
                 </div>
             </div>`
