@@ -1,4 +1,4 @@
-define(['axios'], function (axios) {
+define(['axios','mui'], function (axios) {
     function addMethod (object, name, fn) {
         // 把前一次添加的方法存在一个临时变量old中
         var old = object[name];
@@ -14,6 +14,15 @@ define(['axios'], function (axios) {
             }
         };
     }
+    let instance = axios.create({});
+    instance.interceptors.response.use(res=>{
+        if(res.code!='200'){
+            mui.toast(res.msg);
+        }
+        return res;
+    }, err=>{
+        return Promise.reject(err);
+    });
     addMethod(this, "monthPlanDetailInit", function (func) {
         axios.get('../source/temp/zdData.json').then(res => {
            func(res);
