@@ -15,37 +15,44 @@
     {
       "title":"年度目标值",
       "rows":3,
-      "placeholder":"请输入年度目标值"
+      "placeholder":"请输入年度目标值",
+      "field": "gznr"
     },
     {
       "title":"上月完成情况",
       "rows":3,
-      "placeholder":"请输入年度目标值"
+      "placeholder":"请输入年度目标值",
+      "field": "lastwcqk"
     },
     {
       "title":"差异分析",
       "rows":3,
-      "placeholder":"请输入年度目标值"
+      "placeholder":"请输入年度目标值",
+      "field": "lastpy"
     },
     {
       "title":"解决方案",
       "rows":3,
-      "placeholder":"请输入年度目标值"
+      "placeholder":"请输入年度目标值",
+      "field": "lastjjfa"
     },
     {
       "title":"月预算目标",
       "rows":3,
-      "placeholder":"请输入月预算目标"
+      "placeholder":"请输入月预算目标",
+      "field": "yysmb"
     },
     {
       "title":"本月月度目标值",
       "rows":3,
-      "placeholder":"请输入本月月度目标值"
+      "placeholder":"请输入本月月度目标值",
+      "field": "ygznr"
     },
     {
       "title":"本月行动方案",
       "rows":5,
-      "placeholder":"请输入本月行动方案"
+      "placeholder":"请输入本月行动方案",
+      "field": "xdfa"
     }
   ],
   "conLists":[{
