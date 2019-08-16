@@ -3,6 +3,7 @@ define(function () {
         baseUrl: "../source/js",
         paths: {
             "vue": "lib/vue",
+            "bridge": "webJsBridge",
             "zepto": "lib/zepto1.2",
             "axios": "lib/axios",
             "mui": "lib/mui",
@@ -20,7 +21,7 @@ define(function () {
             }
         }
     });
-    require(["zepto", "axios"], function () {
+    require(["zepto", "bridge", "axios"], function () {
         require(["../../message/js/" + $("title").text()])
     })
 })
