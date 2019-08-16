@@ -8,7 +8,8 @@ define(function () {
             "mui": "lib/mui",
             "picker": "plugin/mui.picker",
             "poppicker": "plugin/mui.poppicker",
-            "components": "../../message/components"
+            "components": "../../message/components",
+            "service": "../../message/js/service"
         },
         shim:{
             "picker":{
@@ -19,7 +20,7 @@ define(function () {
             }
         }
     });
-    require(["zepto"], function () {
+    require(["zepto", "axios"], function () {
         require(["../../message/js/" + $("title").text()])
     })
 })

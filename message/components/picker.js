@@ -24,7 +24,7 @@ define(['vue','picker','poppicker'], function (Vue) {
                  <button :id="id" class="mui-btn mui-btn-block" type='button' :val="record.value" @click="show">{{record.text}}</button>
                 <div class="ui-alert"></div>
                 </div>
-               
+
             </div>`,
         methods:{
             show:function () {

@@ -1,5 +1,5 @@
-require(['vue', 'axios', 'picker', 'poppicker', 'components/textArea', 'components/picker'],
-    function (Vue, axios,pick, PopPicker,textArea,picker) {
+require(['vue', 'components/textArea', 'components/picker', 'service'],
+    function (Vue, textArea, picker, service) {
     new Vue({
         el: '#message_list',
         components: {
@@ -35,9 +35,15 @@ require(['vue', 'axios', 'picker', 'poppicker', 'components/textArea', 'componen
                 self.zgld.record = res[0]
             },
             getData() {
+                // var self = this;
+                // return axios.get('../source/temp/zdData.json').then(res => {
+                //     self.zds = res.data.list;
+                // })
                 var self = this;
-                return axios.get('../source/temp/zdData.json').then(res => {
+                service.monthPlanDetailInit(function (res) {
                     self.zds = res.data.list;
+                    self.zgld.zgldData = res.data.conLists;
+                    self.zgld.record = res.data.conLists[0];
                 })
             },
 
@@ -47,17 +53,17 @@ require(['vue', 'axios', 'picker', 'poppicker', 'components/textArea', 'componen
         },
         mounted(){
             this.$nextTick(function () {
-                var self = this;
-                var result = {"zgld":"zhbh"};
-                axios.get('../source/temp/zdData.json').then(res => {
-                    self.zgld.zgldData = res.data.conLists;
-                    this.zgld.record = res.data.conLists[0];
-                    if (true){
-                      this.zgld.record = res.data.conLists.filter(z => z.value === result.zgld)[0]
-                    }else{
-                        this.zgld.record = res.data.conLists[0]
-                    }
-                })
+                // var self = this;
+                // var result = {"zgld":"zhbh"};
+                // axios.get('../source/temp/zdData.json').then(res => {
+                //     self.zgld.zgldData = res.data.conLists;
+                //     this.zgld.record = res.data.conLists[0];
+                //     if (true){
+                //       this.zgld.record = res.data.conLists.filter(z => z.value === result.zgld)[0]
+                //     }else{
+                //         this.zgld.record = res.data.conLists[0]
+                //     }
+                // })
             })
         }
 
