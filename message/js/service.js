@@ -1,4 +1,4 @@
-define(['axios','mui'], function (axios) {
+define(['axios','mui','bridge'], function (axios,mui) {
     function addMethod (object, name, fn) {
         // 把前一次添加的方法存在一个临时变量old中
         var old = object[name];
@@ -15,6 +15,10 @@ define(['axios','mui'], function (axios) {
         };
     }
     let instance = axios.create({});
+    instance.defaults = {
+        //baseURL: 'https://wxdev.hongyancloud.com/hy'
+        baseURL:'http://dev.sge.cn/hyapp'
+    };
     instance.interceptors.response.use(res=>{
         if(res.code!='200'){
             mui.toast(res.msg);
@@ -27,14 +31,49 @@ define(['axios','mui'], function (axios) {
         axios.get('../source/temp/zdData.json').then(res => {
            func(res);
         });
-    })
+    });
     addMethod(this, "monthPlanDetailInit", function (xh, func) {
         axios.get('../source/temp/zdData.json').then(res => {
             func(res);
         });
-    })
+    });
+    var monthPlanDelete = function (xh, func) {
+        instance.get('/gzrzfb/deleteNewMonthPlan').then(res=>{
+            func(res);
+        })
+    };
+    var monthPlanSave = function (params, func) {
+        instance.get('/gzrzfb/saveNewMonthPlan').then(res=>{
+           func(res);
+        });
+    };
+    var monthPlanDJCancel = function (xh,func) {
+        instance.post('').then(res=>{
+            func(res)
+        })
+    };
+    var monthPlanDJSave = function (params,func) {
+        instance.post('').then(res=>{
+            func(res)
+        })
+    };
+    //初次连接桥获取基本信息
+    /*bridge.getBaseData(function (res) {
+
+    });*/
+    var ygbm = '00791';
+    var getRankRelationship = function (params,func) {
+        instance.get('/gzrzfb/rankRelationship?ygbm='+ygbm).then(res=>{
+            func(res)
+        })
+    }
     return {
-        "monthPlanDetailInit" : this.monthPlanDetailInit
+        "monthPlanDetailInit" : this.monthPlanDetailInit,
+        "monthPlanDelete" : monthPlanDelete,
+        "monthPlanSave" : monthPlanSave,
+        "monthPlanDJCancel":monthPlanDJCancel,
+        "monthPlanDJSave":monthPlanDJSave,
+        "getRankRelationship":getRankRelationship
     }
 })
 
