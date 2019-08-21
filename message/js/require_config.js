@@ -9,6 +9,7 @@ define(function () {
             "mui": "lib/mui",
             "picker": "plugin/mui.picker",
             "poppicker": "plugin/mui.poppicker",
+            "dtpicker": "plugin/mui.dtpicker",
             "components": "../../message/components",
             "service": "../../message/js/service"
         },
@@ -18,10 +19,13 @@ define(function () {
             },
             "poppicker":{
                 deps:["mui"]
+            },
+            "dtpicker":{
+                deps:["mui"]
             }
         }
     });
-    require(["zepto", "bridge", "axios"], function () {
+    require(["zepto", "axios"], function () {
         require(["../../message/js/" + $("title").text()])
     })
 })

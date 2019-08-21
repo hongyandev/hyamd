@@ -1,4 +1,4 @@
-define(['axios','mui','bridge'], function (axios,mui) {
+define(['axios','mui'], function (axios,mui) {
     function addMethod (object, name, fn) {
         // 把前一次添加的方法存在一个临时变量old中
         var old = object[name];
@@ -14,11 +14,9 @@ define(['axios','mui','bridge'], function (axios,mui) {
             }
         };
     }
-    let instance = axios.create({});
-    instance.defaults = {
-        //baseURL: 'https://wxdev.hongyancloud.com/hy'
-        baseURL:'http://dev.sge.cn/hyapp'
-    };
+    let instance = axios.create({
+        baseURL: 'http://dev.sge.cn/hyapp'
+    });
     instance.interceptors.response.use(res=>{
         if(res.code!='200'){
             mui.toast(res.msg);
@@ -43,7 +41,7 @@ define(['axios','mui','bridge'], function (axios,mui) {
         })
     };
     var monthPlanSave = function (params, func) {
-        instance.get('/gzrzfb/saveNewMonthPlan').then(res=>{
+        instance.post('/gzrzfb/saveNewMonthPlan').then(res=>{
            func(res);
         });
     };
@@ -61,9 +59,9 @@ define(['axios','mui','bridge'], function (axios,mui) {
     /*bridge.getBaseData(function (res) {
 
     });*/
-    var ygbm = '00791';
+
     var getRankRelationship = function (params,func) {
-        instance.get('/gzrzfb/rankRelationship?ygbm='+ygbm).then(res=>{
+        instance.get('/gzrzfb/rankRelationship?ygbm='+params).then(res=>{
             func(res)
         })
     }
