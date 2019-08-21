@@ -10,7 +10,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         },
         template: `<div>
                       <div class="content">
-                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value"></text-area>
+                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
                           <div class="mui-content">
                               <h5 class="mui-content-padded">主办人</h5>
                               <div class="mui-border">
@@ -131,13 +131,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             this.$nextTick(function () {
                 var self = this;
                 var ygbm = '00791';
-                service.getRankRelationship(ygbm,function (res) {
-                    console.info(res);
-                    self.zgld.zgldData = res.data.data.sjld;
-                    console.log(res.data.data.sjld);
-                    self.zgld.record = res.data.data.sjld.filter(sjld => sjld.mr === '1')[0];
+                service.getRankRelationship(ygbm,function (data) {
+                    self.$set(self.zgld, "zgldData", data.sjld.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
+                    self.$set(self.zgld, "record", data.sjld.filter(sjld => sjld.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
                 });
-
             })
         }
 

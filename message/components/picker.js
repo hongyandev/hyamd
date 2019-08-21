@@ -21,7 +21,7 @@ define(['vue','picker','poppicker'], function (Vue) {
             `<div class="mui-content">
                 <h5 class="mui-content-padded">{{title}}</h5>
                 <div class="mui-border">
-                 <button :id="id" class="mui-btn mui-btn-block" type='button' :val="record.ygbm" @click="show">{{record.ygxm}}</button>
+                 <button :id="id" class="mui-btn mui-btn-block" type='button' :val="record.value" @click="show">{{record.text}}</button>
                 <div class="ui-alert"></div>
                 </div>
 
@@ -53,7 +53,6 @@ define(['vue','picker','poppicker'], function (Vue) {
         watch:{
             dataResouce:{
                 handler(){
-                    debugger
                     this.datapick.setData(this.dataResouce);
                 }
             },

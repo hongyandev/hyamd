@@ -21,7 +21,7 @@ define(['axios','mui'], function (axios,mui) {
         if(res.code!='200'){
             mui.toast(res.msg);
         }
-        return res;
+        return res.data.data;
     }, err=>{
         return Promise.reject(err);
     });
