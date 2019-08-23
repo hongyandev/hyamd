@@ -21,8 +21,8 @@ define(['vue','picker','poppicker'], function (Vue) {
             `<div class="mui-content">
                 <h5 class="mui-content-padded">{{title}}</h5>
                 <div class="mui-border">
-                 <button :id="id" class="mui-btn mui-btn-block" type='button' :val="record.value" @click="show">{{record.text}}</button>
-                <div class="ui-alert"></div>
+                <button :id="id" class="mui-btn mui-btn-block" type='button' :val="record.value" @click="show">{{record.text}}</button>
+                    <div class="ui-alert"></div>
                 </div>
 
             </div>`,

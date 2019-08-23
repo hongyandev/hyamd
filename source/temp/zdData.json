@@ -60,73 +60,85 @@
       "title":"指标类型",
       "rows":1,
       "placeholder":"请输入指标类型",
-      "field" : "zblx"
+      "field" : "zblx",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"衡量指标",
       "rows":1,
       "placeholder":"请输入衡量指标",
-      "field" : "hlzb"
+      "field" : "hlzb",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"年度目标值",
       "rows":3,
       "placeholder":"请输入年度目标值",
-      "field": "gznr"
+      "field": "gznr",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"月预算目标",
       "rows":3,
       "placeholder":"请输入月预算目标",
-      "field": "yysmb"
+      "field": "yysmb",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"月度目标值",
       "rows":3,
       "placeholder":"请输入月度目标值",
-      "field": "ygznr"
+      "field": "ygznr",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"行动方案",
       "rows":3,
       "placeholder":"请输入行动方案",
-      "field": "xdfa"
+      "field": "xdfa",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"实际完成值",
       "rows":3,
       "placeholder":"请输入实际完成值",
-      "field": "ywcqk"
+      "field": "ywcqk",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"月度完成率",
       "rows":3,
       "placeholder":"请输入月度完成率",
-      "field": "ydwcl"
+      "field": "ydwcl",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"累计完成率",
       "rows":3,
       "placeholder":"请输入累计完成率",
-      "field": "ljwcl"
+      "field": "ljwcl",
+      "readOnly" : "state=1 || state =2 || state=3"
     },
     {
       "title":"完成情况",
       "rows":3,
       "placeholder":"请输入完成情况",
-      "field": "wcqk"
+      "field": "wcqk",
+      "readOnly" : "state=1  || state=3"
     },
     {
       "title":"差异分析",
       "rows":3,
       "placeholder":"请输入差异分析",
-      "field": "py"
+      "field": "py",
+      "readOnly" : "state=1  || state=3"
     },
     {
       "title":"解决方案",
       "rows":3,
       "placeholder":"请输入解决方案",
-      "field": "jjfa"
+      "field": "jjfa",
+      "readOnly" : "state=1  || state=3"
     }
   ],
   "conLists":[

@@ -9,7 +9,7 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         },
         template: `<div>
                       <div class="content">
-                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value"></text-area>
+                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :read="zd.readOnly"></text-area>
                       </div>
                       <nav-bar :btnName="btnData.btnname" @btnclick="btnFun"></nav-bar>  
                    </div>`,
@@ -25,9 +25,9 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
               },
             btnData:{
                   btnname:['取消','提交'],
-
-
-            }
+            },
+            xh:GetRequest().xh ? GetRequest().xh : "",
+            state:'0'
         },
         methods: {
             zgldGetData(res){
@@ -50,7 +50,7 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             btnFun(res){
                 service.test();
                 if(res == '0'){
-                    service.monthPlanDJCancel(function (res) {
+                    service.monthPlanDJDelete(function (res) {
 
                     });
                 }else if(res == '1'){
@@ -65,22 +65,32 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         },
         mounted(){
             this.$nextTick(function () {
-                service.getDataInit(function (res) {
-
-                })
-                // var self = this;
-                // var result = {"zgld":"zhbh"};
-                // axios.get('../source/temp/zdData.json').then(res => {
-                //     self.zgld.zgldData = res.data.conLists;
-                //     this.zgld.record = res.data.conLists[0];
-                //     if (true){
-                //       this.zgld.record = res.data.conLists.filter(z => z.value === result.zgld)[0]
-                //     }else{
-                //         this.zgld.record = res.data.conLists[0]
-                //     }
-                // })
+                let self = this;
+                if(this.xh){
+                    service.monthPlanDetailInit( this.xh ,function (acct,perms) {
+                        // console.info(acct+','+perms);
+                        self.zds = acct.data.list_dj;
+                        self.zds.forEach(function (item) {
+                            console.info(item);
+                            item.value = perms.detial[item.field];
+                        });
+                    });
+                }
             })
         }
 
     })
-})
+});
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if(url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+

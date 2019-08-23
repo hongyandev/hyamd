@@ -1,3 +1,4 @@
+ul,li{list-style: none;padding: 0;margin:0;}
 .content{
     padding-bottom:55px;
 }
@@ -32,4 +33,51 @@ textarea{font-size:14px;}
 }
 .mui-bar-tab .mui-btnColor{
     color:#1A9A90;
+}
+time{
+    font-size:13px;
+    color:#999;
+}
+.mui-info{
+    padding-right:0;
+}
+.mui-info p{
+    font-size:16px;
+    color:#333;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.mui-info .mui-sminfo{
+    font-size:13px;
+    color:#999;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.mui-input-row .mui-label{
+    width:20%;
+    text-align: right;
+    color:#1A9A90;
+}
+.mui-input-row .mui-input{
+    float: left;
+    width:50%;
+    border:1px solid #1A9A90;
+    padding:0 5%;
+}
+.mui-sure{
+    color:#1A9A90;
+    border:1px solid #1A9A90;
+    width:20%!important;
+    margin-right:5%;
+}
+.mui-bottom-fixed{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:55px;
+    padding-top:8px;
+    background: #fff;
+}
+.monthLists{
+    padding-bottom:55px;
 }

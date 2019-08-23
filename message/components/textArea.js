@@ -5,7 +5,8 @@ define(['vue'], function (Vue) {
             zd: {
                 type: Object,
                 required: true
-            }
+            },
+            read:'Boolean'
         },
         template:
             `<div class="mui-content">
@@ -13,7 +14,7 @@ define(['vue'], function (Vue) {
                     <p>{{zd.title}}</p>
                 </div>
                 <div class="mui-input-row mui-border">
-                        <textarea :rows="zd.rows" :placeholder="zd.placeholder" v-model="zd.value"></textarea>
+                        <textarea :rows="zd.rows" :readOnly="read"  :placeholder="zd.placeholder" v-model="zd.value"></textarea>
                 </div>
             </div>`
     })
