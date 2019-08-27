@@ -19,7 +19,7 @@ define(['axios','mui'], function (axios,mui) {
     });
     instance.interceptors.response.use(res=>{
         if(res.data.code!='200'){
-            mui.toast(res.msg);
+            mui.toast(res.data.message,{ duration:3500, type:'div' });
         }
         return res.data.data;
     }, err=>{
@@ -63,7 +63,7 @@ define(['axios','mui'], function (axios,mui) {
         })
     };
     var monthPlanDJSave = function (params,func) {
-        instance.post('').then(res=>{
+        instance.post('/gzrzfb/newMonthPlanCheck',params).then(res=>{
             func(res)
         })
     };

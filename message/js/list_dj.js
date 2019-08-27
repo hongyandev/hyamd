@@ -9,7 +9,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         },
         template: `<div>
                       <div class="content">
-                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :read="zd.readOnly"></text-area>
+                           <input type="hidden" id="zblx"/> 
+                           <text-area v-for="zd in zds" :isReadOnly="true" :zd="zd" :val="zd.value" ></text-area>
                       </div>
                       <nav-bar :btnName="btnData.btnname" @btnclick="btnFun"></nav-bar>  
                    </div>`,
@@ -24,10 +25,9 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                   zgldData:[]
               },
             btnData:{
-                  btnname:['取消','提交'],
+                  btnname:['保存'],
             },
-            xh:GetRequest().xh ? GetRequest().xh : "",
-            state:'0'
+            xh:GetRequest().xh ? GetRequest().xh : ""
         },
         methods: {
             zgldGetData(res){
@@ -36,28 +36,35 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                 self.zgld.record = res[0]
             },
             getData() {
-                // var self = this;
-                // return axios.get('../source/temp/zdData.json').then(res => {
-                //     self.zds = res.data.list;
-                // })
                 var self = this;
                 service.monthPlanDetailInit(function (res) {
                     self.zds = res.data.list_dj;
-                    self.zgld.zgldData = res.data.conLists;
-                    self.zgld.record = res.data.conLists[0];
                 })
             },
-            btnFun(res){
-                service.test();
-                if(res == '0'){
-                    service.monthPlanDJDelete(function (res) {
-
-                    });
-                }else if(res == '1'){
-                    service.monthPlanDJSave(function (res) {
-
-                    });
+            btnFun(){
+                let data = {
+                    xh:this.xh,
+                    wcqk:this.zds.filter(val => val.field === 'wcqk')[0].value,
+                    py:this.zds.filter(val => val.field === 'py')[0].value,
+                    jjfa:this.zds.filter(val => val.field === 'jjfa')[0].value
+                };
+                if(data.wcqk==''||data.wcqk==null){
+                    mui.toast('完成情况不能为空',{ duration:3000, type:'div' });
+                    return false;
                 }
+                if(data.py==''||data.py==null){
+                    mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
+                    return false;
+                }
+                if(data.jjfa==''||data.jjfa==null){
+                    mui.toast('解决方案不能为空',{ duration:3000, type:'div' });
+                    return false;
+                }
+                service.monthPlanDJSave( data ,function (res) {
+                     console.info(res);
+                     //点检完成跳转list页面
+
+                 });
             }
         },
         created() {
@@ -66,16 +73,14 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         mounted(){
             this.$nextTick(function () {
                 let self = this;
-                if(this.xh){
-                    service.monthPlanDetailInit( this.xh ,function (acct,perms) {
-                        // console.info(acct+','+perms);
+                service.monthPlanDetailInit( this.xh ,function (acct,perms) {
                         self.zds = acct.data.list_dj;
                         self.zds.forEach(function (item) {
-                            console.info(item);
                             item.value = perms.detial[item.field];
                         });
-                    });
-                }
+                    self.zds.filter(val => val.field === 'zblx')[0].value = perms.detial['n_zblx'];
+                    $("#wcqk,#py,#jjfa").removeAttr('readonly');
+                });
             })
         }
 

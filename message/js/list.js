@@ -10,13 +10,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         },
         template: `<div>
                       <div class="content">
-                          <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
-                          <div class="mui-content">
-                              <h5 class="mui-content-padded">主办人</h5>
-                              <div class="mui-border">
-                                 <button class="mui-btn mui-btn-block" @click="cbrData" type='button'></button>
-                              </div>
-                          </div>
+                          <input type="hidden" id="zblx"/>
+                          <text-area v-for="zd in zds" :isReadOnly="false" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
+                          <picker-input id="showCbrPicker" title="主办人" @comclick="zgldGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
                           <picker-input id="showUserPicker" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
                           <dtpicker id="stardate" title="预计开始时间" @changeTime="kssjVal"  :record="kssj.record"></dtpicker>  
                           <dtpicker id="enddate" title="预计结束时间" @changeTime="jssjVal"  :record="jssj.record"></dtpicker>  
@@ -24,15 +20,22 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                       <nav-bar :btnName="btnData.btnname" @btnclick="btnFun"></nav-bar>  
                    </div>`,
         data:{
+              zblx:'9',
               zds:[],
               selData:[],
               zgld:{
                   record:{
-                      field:'dfld',
                       value:'',
                       text:'',
                   },
                   zgldData:[]
+              },
+              cbr:{
+                  record:{
+                      value:'',
+                      text:'',
+                  },
+                  cbrData:[]
               },
               kssj:{
                   record:{
@@ -51,7 +54,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
               btnData:{
                       btnname:['删除','保存'],
                 },
-              ygbm:"",
+              ygbm:GetRequest().ygbm ? GetRequest().ygbm : "",
+              ygxm:'',
               state:"0",
               xh:GetRequest().xh ? GetRequest().xh : "",
               ly:GetRequest().ly ? GetRequest().ly : ""
@@ -79,18 +83,6 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 var self = this;
                 service.monthPlanDetailInit(function (res) {
                     self.zds = res.data.list;
-
-                  /*  //来自月计划详情
-                    let xh =  GetRequest().xh;
-                    if(xh){
-                        let detail = JSON.parse(localStorage.getItem("detail"));
-                        var result = {};
-                        this.zds.forEach(function (item) {
-                            result[item.filed] = item.value;
-
-                        });
-                        console.info(result);
-                    }*/
                 })
             },
             btnFun(res){
@@ -110,7 +102,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
 
                 }else if(res == '1'){
                     let data={
-                        zblx:'1',
+                        zblx:this.zblx ? this.zblx : '9',
                         hlzb:this.zds.filter(val => val.field === 'hlzb')[0].value,
                         gznr:this.zds.filter(val => val.field === 'gznr')[0].value,
                         lastwcqk:this.zds.filter(val => val.field === 'lastwcqk')[0].value,
@@ -119,71 +111,138 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         yysmb:this.zds.filter(val => val.field === 'yysmb')[0].value,
                         ygznr:this.zds.filter(val => val.field === 'ygznr')[0].value,
                         xdfa:this.zds.filter(val => val.field === 'xdfa')[0].value,
-                        cbr:'11753',
+                        cbr:this.cbr.record.value,
                         dfld:this.zgld.record.value,
                         kssj:this.kssj.record.value,
                         yjwc:this.jssj.record.value,
-                        ygbm:'00791'
+                        ygbm:this.ygbm
 
                     };
+                    /*this.zds.forEach(function (item) {
+                        if(item.value==''||item.value == null){
+                            mui.toast('请输入'+item.title);
+                            return false;
+                        }
+                    });*/
+                    console.info(data.zblx);
+                    if(data.zblx=='6'&& !isNotANumber(data.ygznr)){
+                        mui.toast('本月月度目标值为数字');
+                        return false;
+                    }
+                    if(data.hlzb==''||data.hlzb==null){
+                        mui.toast('衡量指标不能为空');
+                        return false;
+                    }
+                    if(data.zblx!='9'){
+                        if(data.gznr==''|| data.gznr==null){
+                            mui.toast('年度目标值不能为空',{ duration:3000, type:'div' });
+                            return false;
+                        }
+                    }
+                    if(data.lastwcqk==''|| data.lastwcqk==null){
+                        mui.toast('上月完成情况不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(data.lastpy==''|| data.lastpy==null){
+                        mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(data.lastjjfa==''|| data.lastjjfa==null){
+                        mui.toast('解决方案不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(data.yysmb==''||data.yysmb==null){
+                        mui.toast('月预算目标不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(data.ygznr==''||data.ygznr==null){
+                        mui.toast('本月月度目标值不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(data.xdfa==''|| data.xdfa==null){
+                        mui.toast('本月行动方案不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(!isNotANumber(data.yysmb)){
+                        mui.toast('月预算目标请输入数字',{ duration:3000, type:'div' });
+                        return false;
+                    }
                     service.monthPlanSave(data,function (res) {
-                        console.info(JSON.stringify(data));
+                        //保存完成跳转list;
                         console.info(res);
+
                     });
                 }
             },
         },
         created() {
-            /*self = this;
-            bridge.getData(data,function () {
-
-            })*/
-
-            this.getData();
-            function Appendzero(obj){
-                if(obj<10) return "0" +""+ obj;
-                else return obj;
-            };
+            //this.getData();
             //初始化时间
-            var now = new Date();
-            var year = now.getFullYear() + "";
-            var month = (now.getMonth() + 1) + "";
-            var begin = year + "-" + Appendzero(month)+ "-" + "01";
-            console.info(begin);
-            var lastDateOfCurrentMonth = new Date(year,Appendzero(month),0);
-            var end = year + "-" + Appendzero(month) + "-" + lastDateOfCurrentMonth.getDate();
-            console.info(end);
+            let now = new Date();
+            let year = now.getFullYear() + "";
+            let month = (now.getMonth() + 1) + "";
+            let begin = year + "-" + Appendzero(month)+ "-" + "01";
+            let lastDateOfCurrentMonth = new Date(year,Appendzero(month),0);
+            let end = year + "-" + Appendzero(month) + "-" + lastDateOfCurrentMonth.getDate();
             this.kssj.record = {"text":begin,"value":begin};
             this.jssj.record = {"text":end,"value":end};
         },
         mounted(){
             this.$nextTick(function () {
-                var self = this;
-                var ygbm = '00791';
-                service.getRankRelationship(ygbm,function (data) {
+                let self = this;
+                service.getRankRelationship(self.ygbm,function (data) {
                     self.$set(self.zgld, "zgldData", data.sjld.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
                     self.$set(self.zgld, "record", data.sjld.filter(sjld => sjld.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
+                    let selfyg = {ygxm:'00791',mr:'1',ygbm:self.ygbm};
+                    data.zjxs.unshift(selfyg);
+                    self.$set(self.cbr, "cbrData", data.zjxs.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
+                    self.$set(self.cbr,"record",data.zjxs.filter(zjxs => zjxs.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
                 });
                 //来自月计划的详情
-                /*let xh = GetRequest().xh;
-                let ly = GetRequest().ly;*/
                 if(this.xh && this.ly){
                     //回显月计划的内容
                     service.monthPlanDetailInit( this.xh ,function (acct,perms) {
                        // console.info(acct+','+perms);
                             self.zds = acct.data.list;
+                            // $("#zblx").val(perms.detial['zblx']);
+                            self.zblx = perms.detial['zblx'];
                             self.zds.forEach(function (item) {
                                 console.info(item);
                                 item.value = perms.detial[item.field];
                             });
-
                         });
+
                     self.state = '0';
                     self.xh = '';
+                }else if(this.xh){
+                    //回显
+                    service.monthPlanDetailInit( this.xh ,function (acct,perms) {
+                        // console.info(acct+','+perms);
+                        self.zds = acct.data.list;
+                       /* $("#zblx").val(perms.detial['zblx']);*/
+                        self.zblx = perms.detial['zblx'];
+                        self.zds.forEach(function (item) {
+                            console.info(item);
+                            item.value = perms.detial[item.field];
+                        });
+                    });
+                }else{
+                    let self = this;
+                    service.monthPlanDetailInit(function (res) {
+                        self.zds = res.data.list;
+                        if(self.zblx ='9'){
+                            console.info(self.zds);
+                            self.zds.filter(val => val.field === 'n_zblx')[0].value='其他重点工作';
+                            $("#n_zblx").attr("readonly",'readonly');
+                        }
+                    });
+
                 }
+
                 //新增 删除btn delete
                 if(this.state=='0' && this.xh==''){
                     $("nav a").first().hide();
+
                 }else{
                     $("nav a").first().show();
                 }
@@ -203,4 +262,18 @@ function GetRequest() {
         }
     }
     return theRequest;
+}
+function Appendzero(obj){
+    if(obj<10) return "0" +""+ obj;
+    else return obj;
+}
+function isNotANumber(inputData) {
+    //isNaN(inputData)不能判断空串或一个空格
+    //如果是一个空串或是一个空格，而isNaN是做为数字0进行处理的，而parseInt与parseFloat是返回一个错误消息，这个isNaN检查不严密而导致的。
+    if (parseFloat(inputData).toString() == 'NaN') {
+        //alert(“请输入数字……”);
+        return false;
+    } else {
+        return true;
+    }
 }

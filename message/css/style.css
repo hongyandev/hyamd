@@ -1,3 +1,4 @@
+* { touch-action: pan-y; }
 ul,li{list-style: none;padding: 0;margin:0;}
 .content{
     padding-bottom:55px;
