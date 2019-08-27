@@ -11,13 +11,13 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         template: `<div>
                       <div class="content">
                           <input type="hidden" id="zblx"/>
-                          <text-area v-for="zd in zds" :isReadOnly="false" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
+                          <text-area v-for="zd in zds" :isReadOnly="true" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
                           <picker-input id="showCbrPicker" title="主办人" @comclick="zgldGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
-                          <picker-input id="showUserPicker" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
+                          <picker-input id="showUserPicker" :isHidden="true" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
                           <dtpicker id="stardate" title="预计开始时间" @changeTime="kssjVal"  :record="kssj.record"></dtpicker>  
-                          <dtpicker id="enddate" title="预计结束时间" @changeTime="jssjVal"  :record="jssj.record"></dtpicker>  
+                          <dtpicker id="enddate"  title="预计结束时间" @changeTime="jssjVal"  :record="jssj.record"></dtpicker>  
                       </div>
-                      <nav-bar :btnName="btnData.btnname" @btnclick="btnFun"></nav-bar>  
+                      <nav-bar :btnName="buttons" @btnclick="btnFun"></nav-bar>
                    </div>`,
         data:{
               zblx:'9',
@@ -51,19 +51,24 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                       text:'',
                   }
                },
-              btnData:{
-                      btnname:['删除','保存'],
-                },
-              ygbm:GetRequest().ygbm ? GetRequest().ygbm : "",
-              ygxm:'',
-              state:"0",
-              xh:GetRequest().xh ? GetRequest().xh : "",
-              ly:GetRequest().ly ? GetRequest().ly : ""
+              ygbm:getQueryVariable("ygbm") ? getQueryVariable("ygbm") : "",
+              ygxm:decodeURI(getQueryVariable("ygxm")) ? decodeURI(getQueryVariable("ygxm")) :'',
+              state:"",
+              xh:getQueryVariable("xh") ? getQueryVariable("xh") : "",
+              ly:getQueryVariable("ly") ? getQueryVariable("ly") : ""
+        },
+        computed: {
+            buttons:function () {
+                if(this.state==""){
+                    return [{text:'删除', edit: false},{text:'保存', edit: true}];
+                }else if (this.state=="0"){
+                    return [{text:'删除', edit: true},{text:"保存", edit: true}];
+                }else {
+                    return [{text:'删除', edit: false},{text:"保存", edit: false}];
+                }
+            }
         },
         methods: {
-            cbrData(){
-
-            },
             zgldGetData(res){
                 var self = this;
                 console.info(res);
@@ -176,7 +181,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             },
         },
         created() {
-            //this.getData();
+            this.getData();
             //初始化时间
             let now = new Date();
             let year = now.getFullYear() + "";
@@ -193,7 +198,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 service.getRankRelationship(self.ygbm,function (data) {
                     self.$set(self.zgld, "zgldData", data.sjld.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
                     self.$set(self.zgld, "record", data.sjld.filter(sjld => sjld.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
-                    let selfyg = {ygxm:'00791',mr:'1',ygbm:self.ygbm};
+                    let selfyg = {ygxm:self.ygxm,mr:'1',ygbm:self.ygbm};
                     data.zjxs.unshift(selfyg);
                     self.$set(self.cbr, "cbrData", data.zjxs.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
                     self.$set(self.cbr,"record",data.zjxs.filter(zjxs => zjxs.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
@@ -204,22 +209,21 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     service.monthPlanDetailInit( this.xh ,function (acct,perms) {
                        // console.info(acct+','+perms);
                             self.zds = acct.data.list;
-                            // $("#zblx").val(perms.detial['zblx']);
                             self.zblx = perms.detial['zblx'];
                             self.zds.forEach(function (item) {
                                 console.info(item);
                                 item.value = perms.detial[item.field];
                             });
+                            $("textarea").removeAttr('readonly');
+                            $("#n_zblx").attr("readonly",'readonly');
                         });
-
-                    self.state = '0';
+                    self.state = '';
                     self.xh = '';
                 }else if(this.xh){
                     //回显
                     service.monthPlanDetailInit( this.xh ,function (acct,perms) {
                         // console.info(acct+','+perms);
                         self.zds = acct.data.list;
-                       /* $("#zblx").val(perms.detial['zblx']);*/
                         self.zblx = perms.detial['zblx'];
                         self.zds.forEach(function (item) {
                             console.info(item);
@@ -233,35 +237,26 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         if(self.zblx ='9'){
                             console.info(self.zds);
                             self.zds.filter(val => val.field === 'n_zblx')[0].value='其他重点工作';
+                            //$("#n_zblx").attr("readonly",'readonly');
+                            $("textarea").removeAttr('readonly');
                             $("#n_zblx").attr("readonly",'readonly');
                         }
                     });
 
-                }
-
-                //新增 删除btn delete
-                if(this.state=='0' && this.xh==''){
-                    $("nav a").first().hide();
-
-                }else{
-                    $("nav a").first().show();
                 }
             })
         }
 
     })
 });
-function GetRequest() {
-    var url = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if(url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for(var i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-        }
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
     }
-    return theRequest;
+    return(false);
 }
 function Appendzero(obj){
     if(obj<10) return "0" +""+ obj;

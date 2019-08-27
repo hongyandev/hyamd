@@ -38,7 +38,9 @@ require(['vue', 'mui','service','picker','dtpicker'],
                    </div>`,
         data:{
             month:'',
-            lists:[]
+            lists:[],
+            ygbm:getQueryVariable("ygbm") ? getQueryVariable("ygbm") : "",
+            ygxm:decodeURI(getQueryVariable("ygxm")) ? decodeURI(getQueryVariable("ygxm")) :'',
         },
         computed: {
            realDate:function(){
@@ -75,7 +77,7 @@ require(['vue', 'mui','service','picker','dtpicker'],
                 })
             },
             goDetail:function (xh) {
-                location.href='list.html?xh='+xh+'&ly=0';
+                location.href='list.html?ygbm='+this.ygbm+'&ygxm='+this.ygxm+'&xh='+xh+'&ly=0';
                /*service.goDetail(xh,function (res) {
                    localStorage.setItem("detail",JSON.stringify(res.detial));
                    location.href='list.html?xh='+xh;
@@ -103,4 +105,13 @@ require(['vue', 'mui','service','picker','dtpicker'],
         }
 
     })
-})
+});
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}

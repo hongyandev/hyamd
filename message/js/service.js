@@ -17,13 +17,19 @@ define(['axios','mui'], function (axios,mui) {
     let instance = axios.create({
         baseURL: 'http://dev.sge.cn/hyapp'
     });
+    instance.interceptors.request.use(config=>{
+        mui.showLoading("正在加载..","div");
+        return config;
+    },error=> {
+        mui.hideLoading();
+       return Promise.reject(error);
+    });
     instance.interceptors.response.use(res=>{
-        if(res.data.code!='200'){
-            mui.toast(res.data.message,{ duration:3500, type:'div' });
-        }
+        mui.hideLoading();
         return res.data.data;
-    }, err=>{
-        return Promise.reject(err);
+    },error=>{
+        mui.hideLoading();
+        return Promise.reject(error);
     });
     addMethod(this, "monthPlanDetailInit", function (func) {
         axios.get('../source/temp/zdData.json').then(res => {
@@ -37,9 +43,6 @@ define(['axios','mui'], function (axios,mui) {
         return axios.get('../source/temp/zdData.json');
     }
     addMethod(this, "monthPlanDetailInit", function (xh,func) {
-       /* axios.get('../source/temp/zdData.json').then(res => {
-            func(res);
-        });*/
         axios.all([getZd(), getMonthDetail(xh)])
             .then(axios.spread(function (acct, perms) {
                 // 两个请求现在都执行完成

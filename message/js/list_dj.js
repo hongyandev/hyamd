@@ -27,7 +27,7 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             btnData:{
                   btnname:['保存'],
             },
-            xh:GetRequest().xh ? GetRequest().xh : ""
+            xh:getQueryVariable('xh') ? getQueryVariable('xh') : ""
         },
         methods: {
             zgldGetData(res){
@@ -86,16 +86,13 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
 
     })
 });
-function GetRequest() {
-    var url = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if(url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for(var i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-        }
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
     }
-    return theRequest;
+    return(false);
 }
 

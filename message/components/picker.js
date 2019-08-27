@@ -15,19 +15,22 @@ define(['vue','picker','poppicker'], function (Vue) {
             callBack: {
                 type: Function
             },
-            dataResouce:Array
+            dataResouce:Array,
+            isHidden: Boolean
         },
         template:
             `<div class="mui-content">
                 <h5 class="mui-content-padded">{{title}}</h5>
                 <div class="mui-border">
-                <button :id="id" class="mui-btn mui-btn-block" type='button' :val="record.value" @click="show">{{record.text}}</button>
+                <button :id="id" :isHidden="isHidden" class="mui-btn mui-btn-block" type='button' :val="record.value" @click="show">{{record.text}}</button>
                     <div class="ui-alert"></div>
                 </div>
 
             </div>`,
         methods:{
             show:function () {
+                if (this.isHidden)
+                    return;
                 let self = this;
                 //self.datapick.setData(this.dataResouce);
                     self.datapick.show(function (items) {
