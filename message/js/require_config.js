@@ -25,7 +25,7 @@ define(function () {
             }
         }
     });
-    require(["zepto", "axios"], function () {
+    require(["zepto", "axios","bridge"], function () {
         require(["../../message/js/" + $("title").text()])
     })
 })

@@ -1,4 +1,4 @@
-define(['axios','mui'], function (axios,mui) {
+define(['axios','mui','bridge'], function (axios,mui) {
     function addMethod (object, name, fn) {
         // 把前一次添加的方法存在一个临时变量old中
         var old = object[name];
@@ -17,7 +17,6 @@ define(['axios','mui'], function (axios,mui) {
     let instance = axios.create({
         baseURL: 'http://dev.sge.cn/hyapp'
     });
-    const source = axios.CancelToken.source();
     instance.interceptors.request.use(config=>{
         mui.showLoading("正在加载..","div");
         return config;
@@ -29,7 +28,6 @@ define(['axios','mui'], function (axios,mui) {
         mui.hideLoading();
         if(res.data.code!='200'){
             mui.toast(res.data.message,{ duration:3000, type:'div' });
-            source.cancel();
         }else{
             return res.data.data;
         }
