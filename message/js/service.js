@@ -86,7 +86,7 @@ define(['axios','mui','bridge'], function (axios,mui) {
         })
     };
     var goBridgeList = function () {
-        wbjsBridge.method.bridge.callHandler("WKMonthPlanRefreshing");
+        wbjsBridge.method.bridge.callHandler("WKMonthPlanRefreshing",function () {});
     };
     return {
         "monthPlanDetailInit" : this.monthPlanDetailInit,

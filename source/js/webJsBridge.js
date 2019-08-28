@@ -76,6 +76,7 @@ wbjsBridge.method.getBaseData = function (params, funcCallback) {
 };
 
 
+/*
 function obj2string(o) {
     var r = [];
     if (typeof o == "string") {
@@ -119,6 +120,7 @@ function obj2string(o) {
 
     return o.toString();
 }
+
 
 (function (window, undefined) {
     if (0 !== (wvjbEnableNativeLog & 0x1f)) {
@@ -189,4 +191,5 @@ function obj2string(o) {
     }
 
     bridge = wbjsBridge.method;
-})(window);
+})(window)
+*/

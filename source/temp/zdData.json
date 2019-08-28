@@ -1,12 +1,6 @@
 {
   "list":[
     {
-      "title":"指标类型",
-      "rows":1,
-      "placeholder":"请输入指标类型",
-      "field" : "n_zblx"
-    },
-    {
       "title":"衡量指标",
       "rows":1,
       "placeholder":"请输入衡量指标",

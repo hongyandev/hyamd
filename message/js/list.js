@@ -11,6 +11,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         template: `<div>
                       <div class="content">
                           <input type="hidden" id="zblx"/>
+                          <text-area :isReadOnly="true" :zd="zblxRecord"></text-area>
                           <text-area v-for="zd in zds" :isReadOnly="true" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
                           <picker-input id="showCbrPicker" title="主办人" @comclick="zgldGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
                           <picker-input id="showUserPicker" :isHidden="true" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
@@ -20,6 +21,13 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                       <nav-bar :btnName="buttons" @btnclick="btnFun"></nav-bar>
                    </div>`,
         data:{
+              zblxRecord:{
+                "title":"指标类型",
+                "rows":1,
+                "placeholder":"请输入指标类型",
+                "field" : "n_zblx",
+                "value" : "其它重点工作项"
+              },
               zblx:'9',
               zds:[],
               selData:[],
@@ -235,15 +243,24 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 }else{
                     let self = this;
                     service.monthPlanDetailInit(function (res) {
-                        self.zds = res.data.list;
-                        if(self.zblx ='9'){
-                            console.info(self.zds);
-                            self.zds.filter(val => val.field === 'n_zblx')[0].value='其他重点工作';
+                         self.zds = res.data.list;
+                        if(self.zblx = '9'){
                             $("textarea").removeAttr('readonly');
                             $("#n_zblx").attr("readonly",'readonly');
                         }
+                        // self.zds = res.data.list;
+                        // if(self.zblx ='9'){
+                        //     console.info(self.zds);
+                        //     self.zds.filter(function (val) {
+                        //         if (val.field === 'n_zblx'){
+                        //             self.$set(val,'value','其他重点工作')
+                        //         }
+                        //     })
+                        //     //self.zds.filter(val => val.field === 'n_zblx')[0].value='其他重点工作';
+                        //     $("textarea").removeAttr('readonly');
+                        //     $("#n_zblx").attr("readonly",'readonly');
+                        // }
                     });
-
                 }
             })
         }
