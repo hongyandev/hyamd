@@ -63,11 +63,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                 service.monthPlanDJSave( data ,function (res) {
                      console.info(res);
                      //点检完成跳转list页面
-                    if(data.code=='200'){
-                        mui.toast('保存成功',{ duration:3000, type:'div' })
-                        service.goBridgeList();
-                    }
-
+                     mui.toast('点检成功',{ duration:3000, type:'div' });
+                     service.goBridgeList();
                  });
             }
         },

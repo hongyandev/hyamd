@@ -101,10 +101,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         service.monthPlanDelete(params ,function (data) {
                             console.info(data);
                             //页面跳转列表
-                            if(data.code=='200'){
                                 mui.toast('删除成功',{ duration:3000, type:'div' });
                                 service.goBridgeList()
-                            }
                         });
                     }
 
@@ -178,10 +176,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     service.monthPlanSave(data,function (res) {
                         //保存完成跳转list;
                         console.info(res);
-                        if(data.code=='200'){
                             mui.toast('保存成功',{ duration:3000, type:'div' });
                             service.goBridgeList()
-                        }
                     });
                 }
             },
