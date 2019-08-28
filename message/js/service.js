@@ -26,6 +26,9 @@ define(['axios','mui'], function (axios,mui) {
     });
     instance.interceptors.response.use(res=>{
         mui.hideLoading();
+        if(res.data.code!='200'){
+            mui.toast(res.data.message,{ duration:3000, type:'div' });
+        }
         return res.data.data;
     },error=>{
         mui.hideLoading();
@@ -66,14 +69,10 @@ define(['axios','mui'], function (axios,mui) {
         })
     };
     var monthPlanDJSave = function (params,func) {
-        instance.post('/gzrzfb/newMonthPlanCheck',params).then(res=>{
+        instance.post('/gzrzfb/checkNewMonthPlan',params).then(res=>{
             func(res)
         })
     };
-    //初次连接桥获取基本信息
-    /*bridge.getBaseData(function (res) {
-
-    });*/
 
     var getRankRelationship = function (params,func) {
         instance.get('/gzrzfb/rankRelationship?ygbm='+params).then(res=>{
@@ -85,11 +84,9 @@ define(['axios','mui'], function (axios,mui) {
             func(res)
         })
     };
-    /*var goDetail = function (params,func) {
-        instance.get('/gzrzfb/getNewMonthPlanDetail?xh='+params).then(res=>{
-            func(res)
-        })
-    }*/
+    var goBridgeList = function () {
+        wbjsBridge.method.bridge.callHandler("WKMonthPlanRefreshing");
+    };
     return {
         "monthPlanDetailInit" : this.monthPlanDetailInit,
         "monthPlanDelete" : monthPlanDelete,
@@ -98,6 +95,7 @@ define(['axios','mui'], function (axios,mui) {
         "monthPlanDJSave":monthPlanDJSave,
         "getRankRelationship":getRankRelationship,
         "getMonthLists":getMonthLists,
+        "goBridgeList":goBridgeList
     }
 })
 

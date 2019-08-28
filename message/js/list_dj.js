@@ -25,7 +25,7 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                   zgldData:[]
               },
             btnData:{
-                  btnname:['保存'],
+                  btnname:[{text:'点检',edit:true}],
             },
             xh:getQueryVariable('xh') ? getQueryVariable('xh') : ""
         },
@@ -63,6 +63,10 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                 service.monthPlanDJSave( data ,function (res) {
                      console.info(res);
                      //点检完成跳转list页面
+                    if(data.code=='200'){
+                        mui.toast('保存成功',{ duration:3000, type:'div' })
+                        service.goBridgeList();
+                    }
 
                  });
             }

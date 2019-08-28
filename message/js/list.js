@@ -101,7 +101,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         service.monthPlanDelete(params ,function (data) {
                             console.info(data);
                             //页面跳转列表
-
+                            if(data.code=='200'){
+                                mui.toast('删除成功',{ duration:3000, type:'div' });
+                                service.goBridgeList()
+                            }
                         });
                     }
 
@@ -144,7 +147,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                             return false;
                         }
                     }
-                    if(data.lastwcqk==''|| data.lastwcqk==null){
+                    /*if(data.lastwcqk==''|| data.lastwcqk==null){
                         mui.toast('上月完成情况不能为空',{ duration:3000, type:'div' });
                         return false;
                     }
@@ -155,7 +158,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     if(data.lastjjfa==''|| data.lastjjfa==null){
                         mui.toast('解决方案不能为空',{ duration:3000, type:'div' });
                         return false;
-                    }
+                    }*/
                     if(data.yysmb==''||data.yysmb==null){
                         mui.toast('月预算目标不能为空',{ duration:3000, type:'div' });
                         return false;
@@ -175,7 +178,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     service.monthPlanSave(data,function (res) {
                         //保存完成跳转list;
                         console.info(res);
-
+                        if(data.code=='200'){
+                            mui.toast('保存成功',{ duration:3000, type:'div' });
+                            service.goBridgeList()
+                        }
                     });
                 }
             },
@@ -237,7 +243,6 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         if(self.zblx ='9'){
                             console.info(self.zds);
                             self.zds.filter(val => val.field === 'n_zblx')[0].value='其他重点工作';
-                            //$("#n_zblx").attr("readonly",'readonly');
                             $("textarea").removeAttr('readonly');
                             $("#n_zblx").attr("readonly",'readonly');
                         }
