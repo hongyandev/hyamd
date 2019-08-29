@@ -1620,10 +1620,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
     color: #929292;
 }
-.mui-bar-tab .mui-tab-item.mui-active
+/*.mui-bar-tab .mui-tab-item.mui-active
 {
     color: #007aff;
-}
+}*/
 .mui-bar-tab .mui-tab-item .mui-icon
 {
     top: 3px;
