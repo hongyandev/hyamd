@@ -69,9 +69,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         },
         computed: {
             buttons:function () {
-                if(this.state==""){
+                if(this.state===""){
                     return [{text:'删除', edit: false},{text:'保存', edit: true}];
-                }else if (this.state=="0"){
+                }else if (this.state === 0){
                     return [{text:'删除', edit: true},{text:"保存", edit: true}];
                 }else {
                     return [{text:'删除', edit: false},{text:"保存", edit: false}];
@@ -107,7 +107,6 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             btnFun(res){
                 if(res == '0'){
                     console.info(this.xh);
-                    console.info(this.btnData.btnname[0]);
                     let params = {
                         xh:this.xh
                     };
