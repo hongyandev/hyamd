@@ -1,6 +1,13 @@
 {
   "list":[
     {
+      "title":"月度考核目标",
+      "rows":1,
+      "placeholder":"请输入月度考核目标",
+      "field": "ygznr",
+      "readOnly":"state===2 ||state===3 || state===4"
+    },
+    {
       "title":"衡量指标",
       "rows":2,
       "placeholder":"衡量指标",
@@ -8,81 +15,75 @@
       "readOnly":"state===2 ||state===3 || state===4"
     },
     {
+      "title":"本月行动方案",
+      "rows":5,
+      "placeholder":"请输入本月行动方案",
+      "field": "xdfa",
+      "readOnly":"state===2 ||state===3 || state===4"
+    },
+    {
       "title":"年度目标值",
       "rows":1,
-      "placeholder":"年度目标值",
+      "placeholder":"-",
       "field": "gznr",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"月目标值",
       "rows":1,
-      "placeholder":"月目标值",
+      "placeholder":"-",
       "field": "lastygznr",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"月完成值",
       "rows":1,
-      "placeholder":"月完成值",
+      "placeholder":"-",
       "field": "lastywcqk",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"月完成率",
       "rows":1,
-      "placeholder":"月完成率",
+      "placeholder":"-",
       "field": "lastydwcl",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"累计完成值",
       "rows":1,
-      "placeholder":"累计完成值",
+      "placeholder":"-",
       "field": "lastljwcz",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"累计完成率",
       "rows":1,
-      "placeholder":"累计完成率",
+      "placeholder":"-",
       "field": "lastljwcl",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"累计增长率",
       "rows":1,
-      "placeholder":"累计增长率",
+      "placeholder":"-",
       "field": "lastzzl",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"本月预算目标",
       "rows":1,
-      "placeholder":"月预算目标(数字)",
+      "placeholder":"-",
       "field": "yysmb",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
-    {
-      "title":"月度考核目标",
-      "rows":1,
-      "placeholder":"月度考核目标",
-      "field": "ygznr",
-      "readOnly":"state===2 ||state===3 || state===4"
-    },
+
     {
       "title":"差异分析",
       "rows":3,
-      "placeholder":"差异分析",
+      "placeholder":"-",
       "field": "lastcyfx",
       "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
-    },
-    {
-      "title":"本月行动方案",
-      "rows":5,
-      "placeholder":"本月行动方案",
-      "field": "xdfa",
-      "readOnly":"state===2 ||state===3 || state===4"
     }
   ],
   "list_dj":[
