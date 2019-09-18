@@ -1,4 +1,6 @@
 define(['axios','mui','bridge'], function (axios,mui) {
+    //polyfill.polyfill();
+    //require('polyfill').polyfill();
     function addMethod (object, name, fn) {
         // 把前一次添加的方法存在一个临时变量old中
         var old = object[name];
@@ -81,7 +83,7 @@ define(['axios','mui','bridge'], function (axios,mui) {
         })
     };
     var getMonthLists = function (params,func) {
-        instance.get('/gzrzfb/monthPlanList',{params:params}).then(res=>{
+        instance.get('/gzrzfb/fromMonthPlanList',{params:params}).then(res=>{
             func(res)
         })
     };

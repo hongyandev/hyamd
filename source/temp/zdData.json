@@ -2,142 +2,160 @@
   "list":[
     {
       "title":"衡量指标",
-      "rows":1,
-      "placeholder":"请输入衡量指标",
-      "field" : "hlzb"
+      "rows":2,
+      "placeholder":"衡量指标",
+      "field" : "hlzb",
+      "readOnly":"state===2 ||state===3 || state===4"
     },
     {
       "title":"年度目标值",
       "rows":1,
-      "placeholder":"请输入年度目标值",
-      "field": "gznr"
+      "placeholder":"年度目标值",
+      "field": "gznr",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
-      "title":"上月完成情况",
-      "rows":3,
-      "placeholder":"请输入上月完成情况",
-      "field": "lastwcqk"
+      "title":"月目标值",
+      "rows":1,
+      "placeholder":"月目标值",
+      "field": "lastygznr",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"月完成值",
+      "rows":1,
+      "placeholder":"月完成值",
+      "field": "lastywcqk",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"月完成率",
+      "rows":1,
+      "placeholder":"月完成率",
+      "field": "lastydwcl",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"累计完成值",
+      "rows":1,
+      "placeholder":"累计完成值",
+      "field": "lastljwcz",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"累计完成率",
+      "rows":1,
+      "placeholder":"累计完成率",
+      "field": "lastljwcl",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"累计增长率",
+      "rows":1,
+      "placeholder":"累计增长率",
+      "field": "lastzzl",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"本月预算目标",
+      "rows":1,
+      "placeholder":"月预算目标(数字)",
+      "field": "yysmb",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
+    },
+    {
+      "title":"月度考核目标",
+      "rows":1,
+      "placeholder":"月度考核目标",
+      "field": "ygznr",
+      "readOnly":"state===2 ||state===3 || state===4"
     },
     {
       "title":"差异分析",
       "rows":3,
-      "placeholder":"请输入差异分析",
-      "field": "lastpy"
-    },
-    {
-      "title":"解决方案",
-      "rows":3,
-      "placeholder":"请输入解决方案",
-      "field": "lastjjfa"
-    },
-    {
-      "title":"月预算目标",
-      "rows":1,
-      "placeholder":"请输入月预算目标(数字)",
-      "field": "yysmb"
-    },
-    {
-      "title":"本月月度目标值",
-      "rows":3,
-      "placeholder":"请输入本月月度目标值",
-      "field": "ygznr"
+      "placeholder":"差异分析",
+      "field": "lastcyfx",
+      "readOnly":"state===0 || state===1 || state===2 ||state===3 || state===4"
     },
     {
       "title":"本月行动方案",
       "rows":5,
-      "placeholder":"请输入本月行动方案",
-      "field": "xdfa"
+      "placeholder":"本月行动方案",
+      "field": "xdfa",
+      "readOnly":"state===2 ||state===3 || state===4"
     }
   ],
   "list_dj":[
     {
-      "title":"指标类型",
-      "rows":1,
-      "placeholder":"请输入指标类型",
-      "field" : "zblx"
-    },
-    {
       "title":"衡量指标",
       "rows":1,
-      "placeholder":"请输入衡量指标",
-      "field" : "hlzb"
+      "placeholder":"衡量指标",
+      "field" : "hlzb",
+      "readOnly":"state===2 || state===4"
     },
     {
       "title":"年度目标值",
-      "rows":2,
-      "placeholder":"请输入年度目标值",
-      "field": "gznr"
-    },
-    {
-      "title":"月预算目标",
       "rows":1,
-      "placeholder":"请输入月预算目标(数字)",
-      "field": "yysmb"
+      "placeholder":"年度目标值",
+      "field": "gznr",
+      "readOnly":"state===2 || state===4"
     },
     {
-      "title":"月度目标值",
-      "rows":3,
-      "placeholder":"请输入月度目标值",
-      "field": "ygznr"
+      "title":"本月目标值",
+      "rows":1,
+      "placeholder":"本月目标值",
+      "field": "ygznr",
+      "readOnly":"state===2 || state===4"
     },
     {
-      "title":"行动方案",
-      "rows":3,
-      "placeholder":"请输入行动方案",
-      "field": "xdfa"
+      "title":"月完成值",
+      "rows":1,
+      "placeholder":"上月完成值",
+      "field": "ywcqk",
+      "readOnly":"state===2 || state===4"
     },
     {
-      "title":"实际完成值",
-      "rows":3,
-      "placeholder":"请输入实际完成值",
-      "field": "ywcqk"
+      "title":"月完成率",
+      "rows":1,
+      "placeholder":"上月完成率",
+      "field": "ydwcl",
+      "readOnly":"state===2 || state===4"
     },
     {
-      "title":"月度完成率",
-      "rows":3,
-      "placeholder":"请输入月度完成率",
-      "field": "ydwcl"
+      "title":"累计完成值",
+      "rows":1,
+      "placeholder":"累计完成值",
+      "field": "ljwcz",
+      "readOnly":"state===2 || state===4"
     },
     {
       "title":"累计完成率",
-      "rows":3,
-      "placeholder":"请输入累计完成率",
-      "field": "ljwcl"
+      "rows":1,
+      "placeholder":"累计完成率",
+      "field": "ljwcl",
+      "readOnly":"state===2 || state===4"
     },
     {
-      "title":"完成情况",
-      "rows":3,
-      "placeholder":"请输入完成情况",
-      "field": "wcqk"
+      "title":"累计增长率",
+      "rows":1,
+      "placeholder":"累计增长率",
+      "field": "zzl",
+      "readOnly":"state===2 || state===4"
     },
     {
       "title":"差异分析",
       "rows":3,
-      "placeholder":"请输入差异分析",
-      "field": "py"
+      "placeholder":"差异分析",
+      "field": "cyfx",
+      "readOnly":"state===4"
     },
     {
-      "title":"解决方案",
+      "title":"行动方案",
       "rows":3,
-      "placeholder":"请输入解决方案",
-      "field": "jjfa"
-
+      "placeholder":"行动方案",
+      "field": "xdfa",
+      "readOnly":"state===4"
     }
-  ],
-  "conLists":[
-    {
-    "value": "lj",
-    "text": "罗辑"
-  }, {
-    "value": "ymt",
-    "text": "云天明"
-  }, {
-    "value": "shq",
-    "text": "史强"
-  }, {
-    "value": "zhbh",
-    "text": "章北海"
-  }
   ]
 
 }

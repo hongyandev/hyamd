@@ -11,8 +11,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         template: `<div>
                       <div class="content">
                           <input type="hidden" id="zblx"/>
-                          <text-area :isReadOnly="true" :zd="zblxRecord"></text-area>
-                          <text-area v-for="zd in zds" :isReadOnly="true" :zd="zd" :val="zd.value" :key="zd.filed"></text-area>
+                          <text-area :read="true" :zd="zblxRecord"></text-area>
+                          <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :read="eval(zd.readOnly)"></text-area>
                           <picker-input id="showCbrPicker" title="主办人" @comclick="zgldGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
                           <picker-input id="showUserPicker" :isHidden="true" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
                           <dtpicker id="stardate" title="预计开始时间" @changeTime="kssjVal"  :record="kssj.record"></dtpicker>  
@@ -25,10 +25,11 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 "title":"指标类型",
                 "rows":1,
                 "placeholder":"请输入指标类型",
-                "field" : "n_zblx",
+                "field" : "zbms",
                 "value" : "其它重点工作项"
               },
               zblx:'9',
+              zbms:'',
               zds:[],
               selData:[],
               zgld:{
@@ -61,8 +62,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                },
               ygbm:getQueryVariable("ygbm") ? getQueryVariable("ygbm") : "",
               ygxm:decodeURI(getQueryVariable("ygxm")) ? decodeURI(getQueryVariable("ygxm")) :'',
-              state:"",
+              state:0,
               xh:getQueryVariable("xh") ? getQueryVariable("xh") : "",
+              sonplan:getQueryVariable("sonplan") ? parseInt(getQueryVariable("sonplan")) : 0,
               ly:getQueryVariable("ly") ? getQueryVariable("ly") : ""
         },
         computed: {
@@ -77,6 +79,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             }
         },
         methods: {
+            eval(e){
+                let state = this.state;
+                return eval(e)
+            },
             zgldGetData(res){
                 var self = this;
                 console.info(res);
@@ -117,57 +123,36 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 }else if(res == '1'){
                     let data={
                         zblx:this.zblx ? this.zblx : '9',
-                        hlzb:this.zds.filter(val => val.field === 'hlzb')[0].value,
+                        zbms:this.zbms,
+                        hlzb:this.zds.filter(val => val.field === 'hlzb')[0].value,//衡量指标*
                         gznr:this.zds.filter(val => val.field === 'gznr')[0].value,
-                        lastwcqk:this.zds.filter(val => val.field === 'lastwcqk')[0].value,
-                        lastpy:this.zds.filter(val => val.field === 'lastpy')[0].value,
-                        lastjjfa:this.zds.filter(val => val.field === 'lastjjfa')[0].value,
                         yysmb:this.zds.filter(val => val.field === 'yysmb')[0].value,
-                        ygznr:this.zds.filter(val => val.field === 'ygznr')[0].value,
-                        xdfa:this.zds.filter(val => val.field === 'xdfa')[0].value,
+                        ygznr:this.zds.filter(val => val.field === 'ygznr')[0].value,//月度考核目标*
+                        xdfa:this.zds.filter(val => val.field === 'xdfa')[0].value,//行动方案*
                         cbr:this.cbr.record.value,
                         dfld:this.zgld.record.value,
                         kssj:this.kssj.record.value,
                         yjwc:this.jssj.record.value,
-                        ygbm:this.ygbm
-
+                        ygbm:this.ygbm,
+                        jyxh:this.xh || '0'
                     };
-                    /*this.zds.forEach(function (item) {
-                        if(item.value==''||item.value == null){
-                            mui.toast('请输入'+item.title);
+                    if(data.zblx=='6'){
+                        if(!isNotANumber(data.ygznr)){
+                            mui.toast('本月月度目标值为数字');
                             return false;
                         }
-                    });*/
-                    console.info(data.zblx);
-                    if(data.zblx=='6'&& !isNotANumber(data.ygznr)){
-                        mui.toast('本月月度目标值为数字');
-                        return false;
-                    }
-                    if(data.hlzb==''||data.hlzb==null){
-                        mui.toast('衡量指标不能为空');
-                        return false;
-                    }
-                    if(data.zblx!='9'){
-                        if(data.gznr==''|| data.gznr==null){
-                            mui.toast('年度目标值不能为空',{ duration:3000, type:'div' });
-                            return false;
+                        if(data.yysmb!='' || data.yysmb!= null || data.yysmb!='0'){
+                            if(data.yysmb < data.ygznr ){
+                                mui.toast('本月月度目标值不能小于月预算目标');
+                                return false;
+                            }
                         }
                     }
-                    /*if(data.lastwcqk==''|| data.lastwcqk==null){
-                        mui.toast('上月完成情况不能为空',{ duration:3000, type:'div' });
-                        return false;
-                    }
-                    if(data.lastpy==''|| data.lastpy==null){
-                        mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
-                        return false;
-                    }
-                    if(data.lastjjfa==''|| data.lastjjfa==null){
-                        mui.toast('解决方案不能为空',{ duration:3000, type:'div' });
-                        return false;
-                    }*/
-                    if(data.yysmb==''||data.yysmb==null){
-                        mui.toast('月预算目标不能为空',{ duration:3000, type:'div' });
-                        return false;
+                    if(data.zblx =='9'){
+                        if(data.hlzb==''||data.hlzb==null){
+                            mui.toast('衡量指标不能为空');
+                            return false;
+                        }
                     }
                     if(data.ygznr==''||data.ygznr==null){
                         mui.toast('本月月度目标值不能为空',{ duration:3000, type:'div' });
@@ -175,10 +160,6 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     }
                     if(data.xdfa==''|| data.xdfa==null){
                         mui.toast('本月行动方案不能为空',{ duration:3000, type:'div' });
-                        return false;
-                    }
-                    if(!isNotANumber(data.yysmb)){
-                        mui.toast('月预算目标请输入数字',{ duration:3000, type:'div' });
                         return false;
                     }
                     service.monthPlanSave(data,function (res) {
@@ -211,43 +192,51 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     let selfyg = {ygxm:self.ygxm,mr:'1',ygbm:self.ygbm};
                     data.zjxs.unshift(selfyg);
                     self.$set(self.cbr, "cbrData", data.zjxs.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
-                    self.$set(self.cbr,"record",data.zjxs.filter(zjxs => zjxs.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
+                    if(self.xh=="" || self.sonplan){
+                        self.$set(self.cbr,"record",data.zjxs.filter(zjxs => zjxs.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
+                    }
                 });
                 //来自月计划的详情
-                if(this.xh && this.ly){
+                if(self.xh && self.ly){
                     //回显月计划的内容
-                    service.monthPlanDetailInit( this.xh ,function (acct,perms) {
+                    service.monthPlanDetailInit( self.xh ,function (acct,perms) {
                        // console.info(acct+','+perms);
                             self.zds = acct.data.list;
                             self.zblx = perms.detial['zblx'];
+                            self.zbms = self.zblxRecord.value = perms.detial['zbms'];
                             self.zds.forEach(function (item) {
                                 console.info(item);
-                                item.value = perms.detial[item.field];
+                                item.value = perms.detial[item.field] ? perms.detial[item.field] : "-";
                             });
-                            $("textarea").removeAttr('readonly');
-                            $("#n_zblx").attr("readonly",'readonly');
                         });
-                    self.state = '';
+                    self.state = ''|| 0;
                     self.xh = '';
-                }else if(this.xh){
+                }else if(self.xh && self.sonplan){
+                    service.monthPlanDetailInit( self.xh ,function (acct,perms) {
+                        // console.info(acct+','+perms);
+                        self.zds = acct.data.list;
+                        self.zblx = '7';
+                        self.zbms = self.zblxRecord.value = perms.detial['zbms']+perms.detial['xdfa'];
+
+                    });
+                }else if(self.xh){
                     //回显
-                    service.monthPlanDetailInit( this.xh ,function (acct,perms) {
+                    service.monthPlanDetailInit( self.xh ,function (acct,perms) {
                         // console.info(acct+','+perms);
                         self.zds = acct.data.list;
                         self.zblx = perms.detial['zblx'];
+                        self.zbms = self.zblxRecord.value = perms.detial['zbms'];
                         self.zds.forEach(function (item) {
                             console.info(item);
-                            item.value = perms.detial[item.field];
+                            item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
+                            self.state = parseInt(perms.detial['state']);
+                            self.$set(self.cbr,"record", {value:perms.detial["cbr"],text:perms.detial["n_cbr"]})
                         });
                     });
                 }else{
                     let self = this;
                     service.monthPlanDetailInit(function (res) {
                          self.zds = res.data.list;
-                        if(self.zblx = '9'){
-                            $("textarea").removeAttr('readonly');
-                            $("#n_zblx").attr("readonly",'readonly');
-                        }
                         // self.zds = res.data.list;
                         // if(self.zblx ='9'){
                         //     console.info(self.zds);

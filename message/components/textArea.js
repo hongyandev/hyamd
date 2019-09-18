@@ -6,7 +6,7 @@ define(['vue'], function (Vue) {
                 type: Object,
                 required: true
             },
-            isReadOnly: Boolean
+            read:Boolean
         },
         template:
             `<div class="mui-content">
@@ -14,7 +14,7 @@ define(['vue'], function (Vue) {
                     <p>{{zd.title}}</p>
                 </div>
                 <div class="mui-input-row mui-border">
-                     <textarea :id="zd.field" :readonly="isReadOnly" :rows="zd.rows"  :placeholder="zd.placeholder" v-model="zd.value"></textarea>
+                     <textarea :id="zd.field" :readOnly="read" :rows="zd.rows"  :placeholder="zd.placeholder" v-model="zd.value"></textarea>
                 </div>
             </div>`
     })

@@ -9,23 +9,23 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         },
         template: `<div>
                       <div class="content">
-                           <input type="hidden" id="zblx"/> 
-                           <text-area v-for="zd in zds" :isReadOnly="true" :zd="zd" :val="zd.value" ></text-area>
+                           <text-area :read="true" :zd="zblxRecord"></text-area>
+                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :read="eval(zd.readOnly)"></text-area>
                       </div>
                       <nav-bar :btnName="buttons" @btnclick="btnFun"></nav-bar>  
                    </div>`,
         data:{
-              zds:[],
-              selData:[],
-              zgld:{
-                  record:{
-                      value:'',
-                      text:'',
-                  },
-                  zgldData:[]
-              },
+            zblxRecord:{
+                "title":"指标类型",
+                "rows":1,
+                "placeholder":"请输入指标类型",
+                "field" : "zbms",
+                "value" : ""
+            },
+            zds:[],
+            selData:[],
             xh:getQueryVariable('xh') ? getQueryVariable('xh') : "",
-            state:'2'
+            state:2
         },
         computed: {
             buttons:function () {
@@ -39,10 +39,9 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             }
         },
         methods: {
-            zgldGetData(res){
-                var self = this;
-                console.info(res);
-                self.zgld.record = res[0]
+            eval(e){
+                let state = this.state;
+                return eval(e)
             },
             getData() {
                 var self = this;
@@ -83,14 +82,13 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         mounted(){
             this.$nextTick(function () {
                 let self = this;
-                service.monthPlanDetailInit( this.xh ,function (acct,perms) {
+                service.monthPlanDetailInit( self.xh ,function (acct,perms) {
                         self.zds = acct.data.list_dj;
+                        self.zblxRecord.value = perms.detial['zbms'];
                         self.zds.forEach(function (item) {
-                            item.value = perms.detial[item.field];
+                            item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
                         });
-                        self.state=perms.detial['state'];
-                    self.zds.filter(val => val.field === 'zblx')[0].value = perms.detial['n_zblx'];
-                    $("#wcqk,#py,#jjfa").removeAttr('readonly');
+                        self.state = parseInt(perms.detial['state']);
 
                 });
             })
