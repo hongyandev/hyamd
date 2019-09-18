@@ -64,7 +64,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
               ygxm:decodeURI(getQueryVariable("ygxm")) ? decodeURI(getQueryVariable("ygxm")) :'',
               state:0,
               xh:getQueryVariable("xh") ? getQueryVariable("xh") : "",
-              sonplan:getQueryVariable("sonplan") ? parseInt(getQueryVariable("sonplan")) : 0,
+              sonplan:getQueryVariable("sonPlan") ? parseInt(getQueryVariable("sonPlan")) : 0,
               ly:getQueryVariable("ly") ? getQueryVariable("ly") : ""
         },
         computed: {
