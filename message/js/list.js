@@ -215,8 +215,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         // console.info(acct+','+perms);
                         self.zds = acct.data.list;
                         self.zblx = '7';
-                        self.zbms = self.zblxRecord.value = perms.detial['zbms']+perms.detial['xdfa'];
-
+                        self.zbms = self.zblxRecord.value = perms.detial['zbms']+'行动方案';
                     });
                 }else if(self.xh){
                     //回显
