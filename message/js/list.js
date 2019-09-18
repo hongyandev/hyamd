@@ -237,18 +237,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     let self = this;
                     service.monthPlanDetailInit(function (res) {
                          self.zds = res.data.list;
-                        // self.zds = res.data.list;
-                        // if(self.zblx ='9'){
-                        //     console.info(self.zds);
-                        //     self.zds.filter(function (val) {
-                        //         if (val.field === 'n_zblx'){
-                        //             self.$set(val,'value','其他重点工作')
-                        //         }
-                        //     })
-                        //     //self.zds.filter(val => val.field === 'n_zblx')[0].value='其他重点工作';
-                        //     $("textarea").removeAttr('readonly');
-                        //     $("#n_zblx").attr("readonly",'readonly');
-                        // }
+                         if(self.zblx =='9'){
+                             self.zbms = self.zblxRecord.value = '其他重点工作'
+                         }
                     });
                 }
             })

@@ -52,20 +52,10 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             btnFun(){
                 let data = {
                     xh:this.xh,
-                    wcqk:this.zds.filter(val => val.field === 'wcqk')[0].value,
-                    py:this.zds.filter(val => val.field === 'py')[0].value,
-                    jjfa:this.zds.filter(val => val.field === 'jjfa')[0].value
+                    cyfx:this.zds.filter(val => val.field === 'cyfx')[0].value,
                 };
-                if(data.wcqk==''||data.wcqk==null){
-                    mui.toast('完成情况不能为空',{ duration:3000, type:'div' });
-                    return false;
-                }
-                if(data.py==''||data.py==null){
+                if(data.cyfx==''||data.cyfx==null){
                     mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
-                    return false;
-                }
-                if(data.jjfa==''||data.jjfa==null){
-                    mui.toast('解决方案不能为空',{ duration:3000, type:'div' });
                     return false;
                 }
                 service.monthPlanDJSave( data ,function (res) {
