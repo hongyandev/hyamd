@@ -9,8 +9,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         },
         template: `<div>
                       <div class="content">
-                           <text-area :read="true" :zd="zblxRecord"></text-area>
-                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :read="eval(zd.readOnly)"></text-area>
+                           <text-area :read="true" :show="true" :zd="zblxRecord"></text-area>
+                           <text-area :show="show(zd.show)" v-for="zd in zds" :zd="zd" :val="zd.value" :read="eval(zd.readOnly)"></text-area>
                       </div>
                       <nav-bar :btnName="buttons" @btnclick="btnFun"></nav-bar>  
                    </div>`,
@@ -25,7 +25,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             zds:[],
             selData:[],
             xh:getQueryVariable('xh') ? getQueryVariable('xh') : "",
-            state:2
+            state:2,
+            zblx:''
         },
         computed: {
             buttons:function () {
@@ -41,6 +42,10 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         methods: {
             eval(e){
                 let state = this.state;
+                return eval(e)
+            },
+            show(e){
+                let zblx = this.zblx;
                 return eval(e)
             },
             getData() {
@@ -79,6 +84,7 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                             item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
                         });
                         self.state = parseInt(perms.detial['state']);
+                        self.zblx = perms.detial['zblx']
 
                 });
             })

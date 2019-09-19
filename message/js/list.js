@@ -11,8 +11,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         template: `<div>
                       <div class="content">
                           <input type="hidden" id="zblx"/>
-                          <text-area :read="true" :zd="zblxRecord"></text-area>
-                          <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :read="eval(zd.readOnly)"></text-area>
+                          <text-area :read="true" :show="true" :zd="zblxRecord"></text-area>
+                          <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :show="show(zd.show)" :read="eval(zd.readOnly)"></text-area>
                           <picker-input id="showCbrPicker" title="主办人" @comclick="zgldGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
                           <picker-input id="showUserPicker" :isHidden="true" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
                           <dtpicker id="stardate" title="预计开始时间" @changeTime="kssjVal"  :record="kssj.record"></dtpicker>  
@@ -82,6 +82,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             eval(e){
                 let state = this.state;
                 return eval(e)
+            },
+            show(e){
+               let zblx = this.zblx;
+               return eval(e)
             },
             zgldGetData(res){
                 var self = this;

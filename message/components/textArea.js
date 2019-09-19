@@ -6,10 +6,11 @@ define(['vue'], function (Vue) {
                 type: Object,
                 required: true
             },
-            read:Boolean
+            read:Boolean,
+            show:Boolean
         },
         template:
-            `<div class="mui-content">
+            `<div class="mui-content"  v-show="show">
                 <div class="mui-content-padded">
                     <p>{{zd.title}}</p>
                 </div>
