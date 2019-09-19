@@ -1,18 +1,18 @@
 {
   "list":[
     {
-      "title":"月度考核目标",
-      "rows":1,
-      "placeholder":"请输入月度考核目标",
-      "field": "ygznr",
-      "readOnly":"state===2 ||state===3 || state===4",
-      "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
-    },
-    {
       "title":"衡量指标",
       "rows":2,
       "placeholder":"衡量指标",
       "field" : "hlzb",
+      "readOnly":"state===2 ||state===3 || state===4",
+      "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
+    },
+    {
+      "title":"月度考核目标",
+      "rows":1,
+      "placeholder":"请输入月度考核目标",
+      "field": "ygznr",
       "readOnly":"state===2 ||state===3 || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
@@ -125,10 +125,10 @@
     {
       "title":"月完成值",
       "rows":1,
-      "placeholder":"上月完成值",
+      "placeholder":"月完成值",
       "field": "ywcqk",
-      "readOnly":"state===2 || state===4",
-      "show":"zblx==='6' || zblx==='7' || zblx==='8'"
+      "readOnly":"state===4",
+      "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
       "title":"月完成率",
