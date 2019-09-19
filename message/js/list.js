@@ -110,16 +110,14 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             },
             btnFun(res){
                 if(res == '0'){
-                    console.info(this.xh);
-                    let params = {
-                        xh:this.xh
-                    };
+                    let param = new URLSearchParams();
+                    param.append("xh", this.xh);
                     if(this.xh){
-                        service.monthPlanDelete(params ,function (data) {
+                        service.monthPlanDelete(param ,function (data) {
                             console.info(data);
                             //页面跳转列表
-                                mui.toast('删除成功',{ duration:3000, type:'div' });
-                                service.goBridgeList()
+                            mui.toast('删除成功',{ duration:3000, type:'div' });
+                            service.goBridgeList()
                         });
                     }
 
@@ -242,7 +240,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     service.monthPlanDetailInit(function (res) {
                          self.zds = res.data.list;
                          if(self.zblx =='9'){
-                             self.zbms = self.zblxRecord.value = '其他重点工作'
+                             self.zbms = self.zblxRecord.value = '其他重点工作',
+                             self.state = ""
                          }
                     });
                 }

@@ -76,7 +76,11 @@ define(['axios','mui','bridge'], function (axios,mui) {
             func(res)
         })
     };
-
+    var monthPlanDJCancle = function (params,func) {
+        instance.post('/gzrzfb/cancleCheckNewMonthPlan',params).then(res=>{
+            func(res)
+        })
+    }
     var getRankRelationship = function (params,func) {
         instance.get('/gzrzfb/rankRelationship?ygbm='+params).then(res=>{
             func(res)
@@ -94,7 +98,7 @@ define(['axios','mui','bridge'], function (axios,mui) {
         "monthPlanDetailInit" : this.monthPlanDetailInit,
         "monthPlanDelete" : monthPlanDelete,
         "monthPlanSave" : monthPlanSave,
-        "monthPlanDJDelete":monthPlanDJDelete,
+        "monthPlanDJCancle":monthPlanDJCancle,
         "monthPlanDJSave":monthPlanDJSave,
         "getRankRelationship":getRankRelationship,
         "getMonthLists":getMonthLists,

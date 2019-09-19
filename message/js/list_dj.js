@@ -31,11 +31,9 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         computed: {
             buttons:function () {
                 if(this.state=="2"){
-                    return [{text:'点检', edit:true}];
+                    return [{text:'撤销点检', edit: false},{text:'点检', edit:true}];
                 }else if(this.state=="4") {
-                    return [{text:'点检', edit:false}];
-                }else{
-                    return [{text:'点检', edit:true}];
+                    return [{text:'撤销点检', edit: true},{text:'点检', edit:false}];
                 }
             }
         },
@@ -54,21 +52,41 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                     self.zds = res.data.list_dj;
                 })
             },
-            btnFun(){
-                let data = {
-                    xh:this.xh,
-                    cyfx:this.zds.filter(val => val.field === 'cyfx')[0].value,
-                };
-                if(data.cyfx==''||data.cyfx==null){
-                    mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
-                    return false;
+            btnFun(res){
+                if(res == '0'){
+                    let param = new URLSearchParams();
+                    param.append("xh", this.xh);
+                    service.monthPlanDJCancle(param ,function (res) {
+                        console.info(res);
+                        //点检完成跳转list页面
+                        mui.toast('取消点检成功',{ duration:3000, type:'div' });
+                        service.goBridgeList();
+                    });
+                }else{
+                    let data = {
+                        xh:this.xh,
+                        cyfx:this.zds.filter(val => val.field === 'cyfx')[0].value,
+                        ygznr:this.zds.filter(val => val.field === 'ygznr')[0].value,
+                        ywcqk:this.zds.filter(val => val.field === 'ywcqk')[0].value,
+                    };
+                    if(data.cyfx==''||data.cyfx==null){
+                        mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
+                        return false;
+                    }
+                    if(isNotANumber(data.ygznr)){
+                        if(!isNotANumber(data.ywcqk) || data.ywcqk==''){
+                            mui.toast('月完成值不能为空且必须为数字！',{ duration:3000, type:'div' });
+                            return false;
+                        }
+                    }
+                    service.monthPlanDJSave( data ,function (res) {
+                        console.info(res);
+                        //点检完成跳转list页面
+                        mui.toast('点检成功',{ duration:3000, type:'div' });
+                        service.goBridgeList();
+                    });
                 }
-                service.monthPlanDJSave( data ,function (res) {
-                     console.info(res);
-                     //点检完成跳转list页面
-                     mui.toast('点检成功',{ duration:3000, type:'div' });
-                     service.goBridgeList();
-                 });
+
             }
         },
         created() {
@@ -84,7 +102,7 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                             item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
                         });
                         self.state = parseInt(perms.detial['state']);
-                        self.zblx = perms.detial['zblx']
+                        self.zblx = perms.detial['zblx'];
 
                 });
             })
@@ -102,3 +120,13 @@ function getQueryVariable(variable) {
     return(false);
 }
 
+function isNotANumber(inputData) {
+    //isNaN(inputData)不能判断空串或一个空格
+    //如果是一个空串或是一个空格，而isNaN是做为数字0进行处理的，而parseInt与parseFloat是返回一个错误消息，这个isNaN检查不严密而导致的。
+    if (parseFloat(inputData).toString() == 'NaN') {
+        //alert(“请输入数字……”);
+        return false;
+    } else {
+        return true;
+    }
+}
