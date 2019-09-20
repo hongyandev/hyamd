@@ -95,7 +95,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
             zgldGetData(res){
                 var self = this;
                 console.info(res);
-                self.zgld.record = res[0]
+                if(!self.xh){
+                    self.zgld.record = res[0]
+                }
             },
             kssjVal(res){
                 var self = this;
@@ -194,7 +196,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 let self = this;
                 service.getRankRelationship(self.ygbm,function (data) {
                     self.$set(self.zgld, "zgldData", data.sjld.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
-                    self.$set(self.zgld, "record", data.sjld.filter(sjld => sjld.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
+                    if(!self.xh){
+                        self.$set(self.zgld, "record", data.sjld.filter(sjld => sjld.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
+                    }
                     let selfyg = {ygxm:self.ygxm,mr:'1',ygbm:self.ygbm};
                     data.zjxs.unshift(selfyg);
                     self.$set(self.cbr, "cbrData", data.zjxs.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
@@ -240,8 +244,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                             console.info(item);
                             item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
                             self.state = parseInt(perms.detial['state']);
-                            self.$set(self.cbr,"record", {value:perms.detial["cbr"],text:perms.detial["n_cbr"]})
                         });
+                        self.$set(self.cbr,"record", {value:perms.detial["cbr"],text:perms.detial["n_cbr"]});
+                        self.$set(self.zgld,"record", {value:perms.detial["dfld"],text:perms.detial["n_dfld"]})
                     });
                 }else{
                     let self = this;
