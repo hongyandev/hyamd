@@ -65,14 +65,19 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
               state:0,
               xh:getQueryVariable("xh") ? getQueryVariable("xh") : "",
               sonplan:getQueryVariable("sonPlan") ? parseInt(getQueryVariable("sonPlan")) : 0,
-              ly:getQueryVariable("ly") ? getQueryVariable("ly") : ""
+              ly:getQueryVariable("ly") ? getQueryVariable("ly") : "",
+              mbxh:null
         },
         computed: {
             buttons:function () {
                 if(this.state===""){
                     return [{text:'删除', edit: false},{text:'保存', edit: true}];
-                }else if (this.state === 0){
-                    return [{text:'删除', edit: true},{text:"保存", edit: true}];
+                }else if (this.state === 0 ){
+                    if(this.mbxh!=null){
+                        return [{text:'删除', edit: false},{text:"保存", edit: true}];
+                    }else{
+                        return [{text:'删除', edit: true},{text:"保存", edit: true}];
+                    }
                 }else {
                     return [{text:'删除', edit: false},{text:"保存", edit: false}];
                 }
@@ -126,10 +131,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         zblx:this.zblx ? this.zblx : '9',
                         zbms:this.zbms,
                         hlzb:this.zds.filter(val => val.field === 'hlzb')[0].value,//衡量指标*
-                        gznr:this.zds.filter(val => val.field === 'gznr')[0].value,
-                        yysmb:this.zds.filter(val => val.field === 'yysmb')[0].value,
+                        gznr:this.zds.filter(val => val.field === 'gznr')[0].value || null,
+                        yysmb:this.zds.filter(val => val.field === 'yysmb')[0].value  || null,
                         ygznr:this.zds.filter(val => val.field === 'ygznr')[0].value,//月度考核目标*
-                        xdfa:this.zds.filter(val => val.field === 'xdfa')[0].value,//行动方案*
+                        xdfa:this.zds.filter(val => val.field === 'xdfa')[0].value || null,//行动方案*
                         cbr:this.cbr.record.value,
                         dfld:this.zgld.record.value,
                         kssj:this.kssj.record.value,
@@ -159,10 +164,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         mui.toast('本月月度目标值不能为空',{ duration:3000, type:'div' });
                         return false;
                     }
-                    if(data.xdfa==''|| data.xdfa==null){
+                    /*if(data.xdfa==''|| data.xdfa==null){
                         mui.toast('本月行动方案不能为空',{ duration:3000, type:'div' });
                         return false;
-                    }
+                    }*/
                     service.monthPlanSave(data,function (res) {
                         //保存完成跳转list;
                         console.info(res);
@@ -205,6 +210,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                             self.zds = acct.data.list;
                             self.zblx = perms.detial['zblx'];
                             self.zbms = self.zblxRecord.value = perms.detial['zbms'];
+                            self.mbxh = perms.detial['mbxh'];
                             self.zds.forEach(function (item) {
                                 console.info(item);
                                 item.value = perms.detial[item.field] ? perms.detial[item.field] : "-";
@@ -217,6 +223,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         // console.info(acct+','+perms);
                         self.zds = acct.data.list;
                         self.zblx = '7';
+                        self.mbxh = perms.detial['mbxh'];
                         self.zbms = self.zblxRecord.value = perms.detial['zbms']+'行动方案';
                         self.kssj.record = {"text":perms.detial['kssj'],"value":perms.detial['kssj']};
                         self.jssj.record = {"text":perms.detial['yjwc'],"value":perms.detial['yjwc']};
@@ -228,6 +235,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         self.zds = acct.data.list;
                         self.zblx = perms.detial['zblx'];
                         self.zbms = self.zblxRecord.value = perms.detial['zbms'];
+                        self.mbxh = perms.detial['mbxh'];
                         self.zds.forEach(function (item) {
                             console.info(item);
                             item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
@@ -240,7 +248,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     service.monthPlanDetailInit(function (res) {
                          self.zds = res.data.list;
                          if(self.zblx =='9'){
-                             self.zbms = self.zblxRecord.value = '其他重点工作',
+                             self.zbms = self.zblxRecord.value = '其他重点工作';
                              self.state = ""
                          }
                     });
