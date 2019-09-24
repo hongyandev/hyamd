@@ -12,11 +12,22 @@ define(['vue'], function (Vue) {
         template:
             `<div class="mui-content"  v-show="show">
                 <div class="mui-content-padded">
-                    <p>{{zd.title}}</p>
+                    <p v-html="compTitle">{{compTitle}}</p>
                 </div>
                 <div class="mui-input-row mui-border">
                      <textarea :id="zd.field" :readOnly="read" :rows="zd.rows"  :placeholder="zd.placeholder" v-model="zd.value"></textarea>
                 </div>
-            </div>`
+            </div>`,
+        computed: {
+            compTitle: function () {
+                //console.log('state:'+this.$parent.state);
+                console.info(this.$parent.zdjs);
+                if(!this.$props.read){
+                    return this.zd.title + '<span class="redSpan"> (必填项)</span>';
+                }else{
+                    return this.zd.title
+                }
+            }
+        }
     })
 })

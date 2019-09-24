@@ -66,7 +66,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
               xh:getQueryVariable("xh") ? getQueryVariable("xh") : "",
               sonplan:getQueryVariable("sonPlan") ? parseInt(getQueryVariable("sonPlan")) : 0,
               ly:getQueryVariable("ly") ? getQueryVariable("ly") : "",
-              mbxh:null
+              mbxh:null,
+              zdjs:0
         },
         computed: {
             buttons:function () {
@@ -85,7 +86,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
         },
         methods: {
             eval(e){
-                let state = this.state;
+                let state = this.state,
+                    zdjs = this.zdjs;
                 return eval(e)
             },
             show(e){
@@ -156,11 +158,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                             }
                         }
                     }
-                    if(data.zblx =='9'){
-                        if(data.hlzb==''||data.hlzb==null){
+                    if(data.hlzb==''||data.hlzb==null){
                             mui.toast('衡量指标不能为空');
                             return false;
-                        }
                     }
                     if(data.ygznr==''||data.ygznr==null){
                         mui.toast('本月月度目标值不能为空',{ duration:3000, type:'div' });
@@ -215,6 +215,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                             self.zblx = perms.detial['zblx'];
                             self.zbms = self.zblxRecord.value = perms.detial['zbms'];
                             self.mbxh = perms.detial['mbxh'];
+                            self.zdjs = parseInt(perms.detial['zdjs']);
                             self.zds.forEach(function (item) {
                                 console.info(item);
                                 item.value = perms.detial[item.field] ? perms.detial[item.field] : "-";
@@ -229,6 +230,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         self.zblx = '7';
                         self.mbxh = perms.detial['mbxh'];
                         self.zbms = self.zblxRecord.value = perms.detial['zbms']+'行动方案';
+                        self.zdjs = parseInt(perms.detial['zdjs']);
                         self.kssj.record = {"text":perms.detial['kssj'],"value":perms.detial['kssj']};
                         self.jssj.record = {"text":perms.detial['yjwc'],"value":perms.detial['yjwc']};
                     });
@@ -238,10 +240,11 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         // console.info(acct+','+perms);
                         self.zds = acct.data.list;
                         self.zblx = perms.detial['zblx'];
+                        self.zdjs = parseInt(perms.detial['zdjs']);
                         self.zbms = self.zblxRecord.value = perms.detial['zbms'];
                         self.mbxh = perms.detial['mbxh'];
                         self.zds.forEach(function (item) {
-                            console.info(item);
+                            //console.info(item);
                             item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
                             self.state = parseInt(perms.detial['state']);
                         });

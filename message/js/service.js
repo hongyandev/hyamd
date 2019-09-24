@@ -52,7 +52,7 @@ define(['axios','mui','bridge'], function (axios,mui) {
         axios.all([getZd(), getMonthDetail(xh)])
             .then(axios.spread(function (acct, perms) {
                 // 两个请求现在都执行完成
-                console.log(acct,perms);
+                //console.log(acct,perms);
                 func(acct,perms)
             }));
     });

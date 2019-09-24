@@ -143,3 +143,9 @@ time{
 .monthLists{
     padding-bottom:55px;
 }
+.mui-input-row textarea[readonly]{
+    color:#999;
+}
+.redSpan{
+    color:#f00;
+}

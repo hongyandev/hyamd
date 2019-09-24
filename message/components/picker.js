@@ -50,7 +50,7 @@ define(['vue','picker','poppicker'], function (Vue) {
             }
         },
         mounted(){
-            console.log('1111');
+            //console.log('1111');
             this.init();
         },
         watch:{

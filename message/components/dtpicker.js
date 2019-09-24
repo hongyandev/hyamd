@@ -55,7 +55,7 @@ define(['vue','picker','dtpicker'], function (Vue) {
             }
         },
         mounted(){
-            console.log('1111');
+           // console.log('1111');
             this.init();
         }
     })

@@ -26,7 +26,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             selData:[],
             xh:getQueryVariable('xh') ? getQueryVariable('xh') : "",
             state:2,
-            zblx:''
+            zblx:'',
+            zdjs:0
         },
         computed: {
             buttons:function () {
@@ -39,7 +40,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         },
         methods: {
             eval(e){
-                let state = this.state;
+                let state = this.state,
+                    zdjs = this.zdjs;
                 return eval(e)
             },
             show(e){
@@ -99,10 +101,12 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                         self.zds = acct.data.list_dj;
                         self.zblxRecord.value = perms.detial['zbms'];
                         self.zds.forEach(function (item) {
-                            item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
+                            //item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
+                            item.value = perms.detial[item.field]
                         });
                         self.state = parseInt(perms.detial['state']);
                         self.zblx = perms.detial['zblx'];
+                        self.zdjs = parseInt(perms.detial['zdjs'])
 
                 });
             })
