@@ -218,7 +218,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                             self.zdjs = parseInt(perms.detial['zdjs']);
                             self.zds.forEach(function (item) {
                                 console.info(item);
-                                item.value = perms.detial[item.field] ? perms.detial[item.field] : "-";
+                                item.value = perms.detial[item.field];
                             });
                         });
                     self.state = ''|| 0;
@@ -245,7 +245,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         self.mbxh = perms.detial['mbxh'];
                         self.zds.forEach(function (item) {
                             //console.info(item);
-                            item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
+                            item.value = perms.detial[item.field];
                             self.state = parseInt(perms.detial['state']);
                         });
                         self.$set(self.cbr,"record", {value:perms.detial["cbr"],text:perms.detial["n_cbr"]});

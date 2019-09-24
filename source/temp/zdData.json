@@ -5,7 +5,7 @@
       "rows":2,
       "placeholder":"请输入",
       "field" : "hlzb",
-      "readOnly":"(state===1 && zdjs===1) ||(state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
@@ -13,7 +13,7 @@
       "rows":1,
       "placeholder":"请输入",
       "field": "ygznr",
-      "readOnly":"(state===1 && zdjs===1) ||(state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
@@ -21,7 +21,7 @@
       "rows":5,
       "placeholder":"请输入",
       "field": "xdfa",
-      "readOnly":"(state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"",
       "show":"zblx==='9'"
     },
     {
@@ -29,7 +29,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "gznr",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -37,7 +37,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "lastygznr",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -45,7 +45,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "lastywcqk",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -53,7 +53,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "lastydwcl",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -61,7 +61,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "lastljwcz",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -69,7 +69,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "lastljwcl",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1 ",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -77,7 +77,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "lastzzl",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -85,7 +85,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "yysmb",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -93,7 +93,7 @@
       "rows":3,
       "placeholder":"-",
       "field": "lastcyfx",
-      "readOnly":"(state===0 && zdjs===1) || (state===1 && zdjs===1) || (state===2 && zdjs===1) ||(state===3 && zdjs===1) || state===4",
+      "readOnly":"state===0 || state===1",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     }
   ],
@@ -101,25 +101,25 @@
     {
       "title":"衡量指标",
       "rows":1,
-      "placeholder":"衡量指标",
+      "placeholder":"-",
       "field" : "hlzb",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2 || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
       "title":"年度目标值",
       "rows":1,
-      "placeholder":"年度目标值",
+      "placeholder":"-",
       "field": "gznr",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2 || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
       "title":"本月目标值",
       "rows":1,
-      "placeholder":"本月目标值",
+      "placeholder":"-",
       "field": "ygznr",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2 || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
@@ -133,33 +133,33 @@
     {
       "title":"月完成率",
       "rows":1,
-      "placeholder":"上月完成率",
+      "placeholder":"-",
       "field": "ydwcl",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2  || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
       "title":"累计完成值",
       "rows":1,
-      "placeholder":"累计完成值",
+      "placeholder":"-",
       "field": "ljwcz",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2 || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
       "title":"累计完成率",
       "rows":1,
-      "placeholder":"累计完成率",
+      "placeholder":"-",
       "field": "ljwcl",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2  || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
       "title":"累计增长率",
       "rows":1,
-      "placeholder":"累计增长率",
+      "placeholder":"-",
       "field": "zzl",
-      "readOnly":"(state===2 && zdjs===1) || state===4",
+      "readOnly":"state===2 || state===4",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
