@@ -27,7 +27,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
             xh:getQueryVariable('xh') ? getQueryVariable('xh') : "",
             state:2,
             zblx:'',
-            zdjs:0
+            zdjs:0,
+            owner:parseInt(getQueryVariable('owner'))
         },
         computed: {
             buttons:function () {
@@ -35,6 +36,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                     return [{text:'撤销点检', edit: false},{text:'点检', edit:true}];
                 }else if(this.state=="4") {
                     return [{text:'撤销点检', edit: true},{text:'点检', edit:false}];
+                }else{
+                    return [{text:'撤销点检', edit: false},{text:'点检', edit:false}];
                 }
             }
         },
@@ -97,7 +100,8 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
         mounted(){
             this.$nextTick(function () {
                 let self = this;
-                service.monthPlanDetailInit( self.xh ,function (acct,perms) {
+                if(self.xh && self.owner){
+                    service.monthPlanDetailInit( self.xh ,function (acct,perms) {
                         self.zds = acct.data.list_dj;
                         self.zblxRecord.value = perms.detial['zbms'];
                         self.zds.forEach(function (item) {
@@ -108,7 +112,22 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                         self.zblx = perms.detial['zblx'];
                         self.zdjs = parseInt(perms.detial['zdjs'])
 
-                });
+                    });
+                }else{
+                    service.monthPlanDetailInit( self.xh ,function (acct,perms) {
+                        self.zds = acct.data.list_dj;
+                        self.zblxRecord.value = perms.detial['zbms'];
+                        self.zds.forEach(function (item) {
+                            //item.value = perms.detial[item.field] ? perms.detial[item.field] : '-';
+                            item.value = perms.detial[item.field]
+                        });
+                        self.state = 5;
+                        self.zblx = perms.detial['zblx'];
+                        self.zdjs = parseInt(perms.detial['zdjs'])
+
+                    });
+                }
+
             })
         }
 

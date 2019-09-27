@@ -25,6 +25,14 @@
       "show":"zblx==='9'"
     },
     {
+      "title":"月预算目标",
+      "rows":1,
+      "placeholder":"-",
+      "field": "yysmb",
+      "readOnly":"state===0 || state===1",
+      "show":"zblx==='6' || zblx==='7' || zblx==='8'"
+    },
+    {
       "title":"年度目标值",
       "rows":1,
       "placeholder":"-",
@@ -33,7 +41,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"月目标值",
+      "title":"上月目标值",
       "rows":1,
       "placeholder":"-",
       "field": "lastygznr",
@@ -41,7 +49,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"月完成值",
+      "title":"上月完成值",
       "rows":1,
       "placeholder":"-",
       "field": "lastywcqk",
@@ -49,7 +57,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"月完成率",
+      "title":"完成率",
       "rows":1,
       "placeholder":"-",
       "field": "lastydwcl",
@@ -81,14 +89,6 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"本月预算目标",
-      "rows":1,
-      "placeholder":"-",
-      "field": "yysmb",
-      "readOnly":"state===0 || state===1",
-      "show":"zblx==='6' || zblx==='7' || zblx==='8'"
-    },
-    {
       "title":"差异分析",
       "rows":3,
       "placeholder":"-",
@@ -103,7 +103,7 @@
       "rows":1,
       "placeholder":"-",
       "field" : "hlzb",
-      "readOnly":"state===2 || state===4",
+      "readOnly":"state===2 || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
@@ -111,15 +111,15 @@
       "rows":1,
       "placeholder":"-",
       "field": "gznr",
-      "readOnly":"state===2 || state===4",
+      "readOnly":"state===2 || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"本月目标值",
+      "title":"月目标值",
       "rows":1,
       "placeholder":"-",
       "field": "ygznr",
-      "readOnly":"state===2 || state===4",
+      "readOnly":"state===2 || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
@@ -127,15 +127,15 @@
       "rows":1,
       "placeholder":"请输入",
       "field": "ywcqk",
-      "readOnly":"state===4 || (state===2 && zdjs===1)",
+      "readOnly":"state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
-      "title":"月完成率",
+      "title":"完成率",
       "rows":1,
       "placeholder":"-",
       "field": "ydwcl",
-      "readOnly":"state===2  || state===4",
+      "readOnly":"state===2  || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -143,7 +143,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "ljwcz",
-      "readOnly":"state===2 || state===4",
+      "readOnly":"state===2 || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -151,7 +151,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "ljwcl",
-      "readOnly":"state===2  || state===4",
+      "readOnly":"state===2  || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -159,7 +159,7 @@
       "rows":1,
       "placeholder":"-",
       "field": "zzl",
-      "readOnly":"state===2 || state===4",
+      "readOnly":"state===2 || state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
@@ -167,7 +167,7 @@
       "rows":3,
       "placeholder":"请输入",
       "field": "cyfx",
-      "readOnly":"state===4",
+      "readOnly":"state===4 || state===5",
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     }
   ]

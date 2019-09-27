@@ -13,7 +13,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                           <input type="hidden" id="zblx"/>
                           <text-area :read="true" :show="true" :zd="zblxRecord"></text-area>
                           <text-area v-for="zd in zds" :zd="zd" :val="zd.value" :show="show(zd.show)" :read="eval(zd.readOnly)"></text-area>
-                          <picker-input id="showCbrPicker" title="主办人" @comclick="zgldGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
+                          <picker-input id="showCbrPicker" :isHidden="showCbr" title="主办人" @comclick="cbrGetData" :record="cbr.record" :dataResouce="cbr.cbrData"></picker-input>
                           <picker-input id="showUserPicker" :isHidden="true" title="直管领导" @comclick="zgldGetData" :record="zgld.record" :dataResouce="zgld.zgldData"></picker-input>
                           <dtpicker id="stardate" title="预计开始时间" @changeTime="kssjVal"  :record="kssj.record"></dtpicker>  
                           <dtpicker id="enddate"  title="预计结束时间" @changeTime="jssjVal"  :record="jssj.record"></dtpicker>  
@@ -46,6 +46,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                   },
                   cbrData:[]
               },
+              showCbr:false,
               kssj:{
                   record:{
                       field:'kssj',
@@ -94,12 +95,13 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                let zblx = this.zblx;
                return eval(e)
             },
+            cbrGetData(res){
+                var self  = this;
+                    self.cbr.record = res[0]
+            },
             zgldGetData(res){
                 var self = this;
                 console.info(res);
-                if(!self.xh){
-                    self.zgld.record = res[0]
-                }
             },
             kssjVal(res){
                 var self = this;
@@ -178,6 +180,14 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     });
                 }
             },
+            showMCbr(state) {
+
+                if (state === 0 || state==='') {
+                    this.showCbr = false
+                }else {
+                    this.showCbr = true
+                }
+            }
         },
         created() {
             this.getData();
@@ -204,6 +214,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                     self.$set(self.cbr, "cbrData", data.zjxs.map(item=>{return {text: item.ygxm,value: item.ygbm}}));
                     if(self.xh=="" || self.sonplan){
                         self.$set(self.cbr,"record",data.zjxs.filter(zjxs => zjxs.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
+                        self.$set(self.zgld, "record", data.sjld.filter(sjld => sjld.mr === '1').map(item=>{return{text:item.ygxm,value:item.ygbm}})[0]);
                     }
                 });
                 //来自月计划的详情
@@ -221,8 +232,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                                 item.value = perms.detial[item.field];
                             });
                         });
-                    self.state = ''|| 0;
+                    self.state = '';
                     self.xh = '';
+                    self.showMCbr(self.state);
                 }else if(self.xh && self.sonplan){
                     service.monthPlanDetailInit( self.xh ,function (acct,perms) {
                         // console.info(acct+','+perms);
@@ -233,6 +245,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         self.zdjs = parseInt(perms.detial['zdjs']);
                         self.kssj.record = {"text":perms.detial['kssj'],"value":perms.detial['kssj']};
                         self.jssj.record = {"text":perms.detial['yjwc'],"value":perms.detial['yjwc']};
+                        self.state = '';
+                        self.showMCbr(self.state);
                     });
                 }else if(self.xh){
                     //回显
@@ -246,8 +260,9 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         self.zds.forEach(function (item) {
                             //console.info(item);
                             item.value = perms.detial[item.field];
-                            self.state = parseInt(perms.detial['state']);
                         });
+                        self.state = parseInt(perms.detial['state']);
+                        self.showMCbr(self.state);
                         self.$set(self.cbr,"record", {value:perms.detial["cbr"],text:perms.detial["n_cbr"]});
                         self.$set(self.zgld,"record", {value:perms.detial["dfld"],text:perms.detial["n_dfld"]})
                     });
@@ -257,7 +272,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                          self.zds = res.data.list;
                          if(self.zblx =='9'){
                              self.zbms = self.zblxRecord.value = '其他重点工作';
-                             self.state = ""
+                             self.state = "";
+                             self.showMCbr(self.state);
                          }
                     });
                 }
