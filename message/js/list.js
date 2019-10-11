@@ -247,6 +247,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         self.jssj.record = {"text":perms.detial['yjwc'],"value":perms.detial['yjwc']};
                         self.state = '';
                         self.showMCbr(self.state);
+                        self.jyxh = self.xh;
+                        self.xh = '';
                     });
                 }else if(self.xh){
                     //回显
