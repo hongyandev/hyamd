@@ -33,7 +33,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"年度目标值",
+      "title":"年度目标",
       "rows":1,
       "placeholder":"-",
       "field": "gznr",
@@ -41,7 +41,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"上月目标值",
+      "title":"上月目标",
       "rows":1,
       "placeholder":"-",
       "field": "lastygznr",
@@ -49,7 +49,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"上月完成值",
+      "title":"上月完成",
       "rows":1,
       "placeholder":"-",
       "field": "lastywcqk",
@@ -65,7 +65,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"累计完成值",
+      "title":"累计完成",
       "rows":1,
       "placeholder":"-",
       "field": "lastljwcz",
@@ -107,7 +107,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
-      "title":"年度目标值",
+      "title":"年度目标",
       "rows":1,
       "placeholder":"-",
       "field": "gznr",
@@ -115,7 +115,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"月目标值",
+      "title":"月目标",
       "rows":1,
       "placeholder":"-",
       "field": "ygznr",
@@ -123,7 +123,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8' || zblx==='9'"
     },
     {
-      "title":"月完成值",
+      "title":"月完成",
       "rows":1,
       "placeholder":"请输入",
       "field": "ywcqk",
@@ -139,7 +139,7 @@
       "show":"zblx==='6' || zblx==='7' || zblx==='8'"
     },
     {
-      "title":"累计完成值",
+      "title":"累计完成",
       "rows":1,
       "placeholder":"-",
       "field": "ljwcz",

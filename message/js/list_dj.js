@@ -74,14 +74,16 @@ require(['vue', 'components/textArea', 'components/picker','components/navBar','
                         ygznr:this.zds.filter(val => val.field === 'ygznr')[0].value,
                         ywcqk:this.zds.filter(val => val.field === 'ywcqk')[0].value,
                     };
-                    if(data.cyfx==''||data.cyfx==null){
-                        mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
-                        return false;
-                    }
-                    if(isNotANumber(data.ygznr)){
-                        if(!isNotANumber(data.ywcqk) || data.ywcqk==''){
-                            mui.toast('月完成值不能为空且必须为数字！',{ duration:3000, type:'div' });
+                    if(data.ywcqk){
+                        if(data.cyfx==''||data.cyfx==null){
+                            mui.toast('差异分析不能为空',{ duration:3000, type:'div' });
                             return false;
+                        }
+                        if(isNotANumber(data.ygznr)){
+                            if(!isNotANumber(data.ywcqk) || data.ywcqk==''){
+                                mui.toast('月完成不能为空且必须为数字！',{ duration:3000, type:'div' });
+                                return false;
+                            }
                         }
                     }
                     service.monthPlanDJSave( data ,function (res) {
