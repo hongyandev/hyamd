@@ -67,7 +67,7 @@ require(['vue', 'mui','service','picker','dtpicker'],
             queryLists:function () {
                 let self = this;
                 let data = {
-                    cbr:'00791',
+                    cbr: this.ygbm,
                     xz:'3',
                     kssj:this.realDate
                 };
