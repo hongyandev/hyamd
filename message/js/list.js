@@ -174,8 +174,6 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         return false;
                     }*/
                     service.monthPlanSave(data,function (res) {
-                        debugger
-                        return false;
                         //保存完成跳转list;
                         console.info(res);
                             mui.toast('保存成功',{ duration:3000, type:'div' });
