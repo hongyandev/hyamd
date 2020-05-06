@@ -67,7 +67,7 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
               xh:getQueryVariable("xh") ? getQueryVariable("xh") : "",
               sonplan:getQueryVariable("sonPlan") ? parseInt(getQueryVariable("sonPlan")) : 0,
               ly:getQueryVariable("ly") ? getQueryVariable("ly") : "",
-              mbxh:null,
+              mbxh:null || "",
               zdjs:0
         },
         computed: {
@@ -75,10 +75,10 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                 if(this.state===""){
                     return [{text:'删除', edit: false},{text:'保存', edit: true}];
                 }else if (this.state === 0 ){
-                    if(this.mbxh!=null){
-                        return [{text:'删除', edit: false},{text:"保存", edit: true}];
-                    }else{
+                    if(this.mbxh== null || this.mbxh==""){
                         return [{text:'删除', edit: true},{text:"保存", edit: true}];
+                    }else{
+                        return [{text:'删除', edit: false},{text:"保存", edit: true}];
                     }
                 }else {
                     return [{text:'删除', edit: false},{text:"保存", edit: false}];
@@ -146,7 +146,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         kssj:this.kssj.record.value,
                         yjwc:this.jssj.record.value,
                         ygbm:this.ygbm,
-                        jyxh:this.xh || '0'
+                        jyxh:'0',
+                        xh:this.xh
                     };
                     if(data.zblx=='6'){
                         if(!isNotANumber(data.ygznr)){
@@ -173,6 +174,8 @@ require(['vue', 'components/textArea', 'components/picker','components/dtpicker'
                         return false;
                     }*/
                     service.monthPlanSave(data,function (res) {
+                        debugger
+                        return false;
                         //保存完成跳转list;
                         console.info(res);
                             mui.toast('保存成功',{ duration:3000, type:'div' });
