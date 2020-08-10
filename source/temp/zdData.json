@@ -22,7 +22,7 @@
       "placeholder":"请输入",
       "field": "xdfa",
       "readOnly":"",
-      "show":"zblx==='9'"
+      "show":"zblx==='8' || zblx==='9'"
     },
     {
       "title":"月预算目标",
